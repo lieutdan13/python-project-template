@@ -4,7 +4,7 @@ import pytest
 from click.testing import CliRunner
 from importlib.metadata import version
 
-from {{package_name}}.cli import main
+from {{ project_name | replace(" ", "-") }}.cli import main
 
 
 # See https://click.palletsprojects.com/testing/
