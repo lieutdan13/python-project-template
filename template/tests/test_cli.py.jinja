@@ -7,13 +7,17 @@ from importlib.metadata import version
 from {{package_name}}.cli import main
 
 
+# See https://click.palletsprojects.com/testing/
+
 @pytest.fixture
 def cli() -> FunctionType:
     runner = CliRunner()
     yield functools.partial(runner.invoke, main)
 
+
 def test_cli_output(cli: FunctionType):
     cli().output.rstrip() == "Hello, {{project_name}}!"
+
 
 def test_cli_version(cli: FunctionType):
     expected_version = version("{{package_name}}")
