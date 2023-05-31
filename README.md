@@ -12,6 +12,8 @@ An opinionated project template for Python projects.
 * Projects use bumpversion to increase version according to [semantic versioning][semver]
 * Python projects are installable
 
+See this [sample project](https://git01.iis.fhg.de/mkj/sample-project-defaults) to see how projects generated from this template look like.
+
 ## Getting Started
 
 ### Prerequisites
