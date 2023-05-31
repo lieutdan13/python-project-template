@@ -1,3 +1,7 @@
+.PHONY: install
+install-dev:	## install development dependencies
+	pip install -e .[test,doc,dev]
+
 .PHONY: maintainability
 maintainability:  ## run maintainability checks
 	@radon cc --total-average -nB -s src
