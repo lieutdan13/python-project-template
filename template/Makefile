@@ -11,7 +11,7 @@ coverage:	## collect coverage data
 coverage-ci:
 	@CI=true $(MAKE) coverage
 
-DOCS_TARGET:=build/docs
+DOCS_TARGET?=build/docs
 .PHONY: docs
 docs:	## build documentation
 	mkdocs build --site-dir ${DOCS_TARGET}
