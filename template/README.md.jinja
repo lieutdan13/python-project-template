@@ -1,6 +1,6 @@
 # {{project_name}}
 
-{% set url_pages = "http://" + remote_url.split(":")[1].split("/")[0] + ".git01.iis.fhg.de/" + "/".join(remote_url.split(":")[1].split("/")[1:]).replace(".git", "") %}
+{%- set url_pages = "http://" + remote_url.split(":")[1].split("/")[0] + ".git01.iis.fhg.de/" + "/".join(remote_url.split(":")[1].split("/")[1:]).replace(".git", "") %}
 
 [![documentation][badge_documentation]]({{url_pages}}) [![badge_coverage][]]({{url_pages}}/coverage) ![badge_maintainability][]
 
