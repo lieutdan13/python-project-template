@@ -19,3 +19,8 @@ DOCS_TARGET?=build/docs
 .PHONY: docs
 docs:	## build documentation
 	mkdocs build --site-dir ${DOCS_TARGET}
+
+# a nice way to document Makefiles, found here: https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
