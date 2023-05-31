@@ -4,7 +4,7 @@ import pytest
 from click.testing import CliRunner
 from importlib.metadata import version
 
-from {{ project_name | replace(" ", "-") }}.cli import main
+from {{ package_name }}.cli import main
 
 
 # See https://click.palletsprojects.com/testing/
@@ -20,5 +20,5 @@ def test_cli_output(cli: FunctionType):
 
 
 def test_cli_version(cli: FunctionType):
-    expected_version = version("{{package_name}}")
+    expected_version = version("{{project_name | replace(' ', '-')}}")
     cli(["--version"]).output.rstrip() == expected_version
