@@ -22,7 +22,7 @@ An opinionated project template for Python projects.
 
 ```console
 mkdir my_new_project
-copier https://git01.iis.fhg.de/mkj/iis-project-template my_new_project
+copier https://git01.iis.fhg.de/mkj/iis-project-template.git my_new_project
 ```
 
 [pre-commit]: https://pre-commit.com/
