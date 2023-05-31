@@ -35,8 +35,10 @@ pages:
     - main
     - staging
   script:
-    # - make docs
-    - mv badges public/.
+    - mkdir -p public
+    - pip install .[doc]
+    - DOCS_TARGET=public make docs
+    - mv build/badges public/.
     - mv build/coverage public/.
   artifacts:
     paths:
