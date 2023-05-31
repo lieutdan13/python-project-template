@@ -1,9 +1,20 @@
+from types import FunctionType
+import functools
 import pytest
+from click.testing import CliRunner
+from importlib.metadata import version
 
 from {{package_name}}.cli import main
 
 
-def test_add_one(capsys: pytest.CaptureFixture):
-    main()
-    output = capsys.readouterr()
-    output.out == "Hello, {{project_name}}!\n"
+@pytest.fixture
+def cli() -> FunctionType:
+    runner = CliRunner()
+    yield functools.partial(runner.invoke, main)
+
+def test_cli_output(cli: FunctionType):
+    cli().output.rstrip() == "Hello, {{project_name}}!"
+
+def test_cli_version(cli: FunctionType):
+    expected_version = version("{{package_name}}")
+    cli(["--version"]).output.rstrip() == expected_version
