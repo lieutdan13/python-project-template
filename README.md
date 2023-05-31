@@ -2,17 +2,6 @@
 
 An opinionated project template for Python projects.
 
-## Prerequisites
-
-* [copier](https://github.com/copier-org/copier)
-
-## Usage
-
-```console
-mkdir my_new_project
-copier https://github.com/jannismain/iis-project-template-python my_new_project
-```
-
 ## Features
 
 * Each project has a [README][] and [CHANGELOG][] file
@@ -20,6 +9,19 @@ copier https://github.com/jannismain/iis-project-template-python my_new_project
 * Projects use [pre-commit][] to run CI checks on the client
 * Projects use bumpversion to increase version according to [semantic versioning][semver]
 * Python projects are installable
+
+## Getting Started
+
+### Prerequisites
+
+* [copier](https://github.com/copier-org/copier)
+
+### Usage
+
+```console
+mkdir my_new_project
+copier https://github.com/jannismain/iis-project-template-python my_new_project
+```
 
 [pre-commit]: https://pre-commit.com/
 [semver]: https://semver.org/
