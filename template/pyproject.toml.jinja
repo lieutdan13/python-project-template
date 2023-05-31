@@ -79,7 +79,7 @@ dependencies = [] # Optional
 # dependencies). Users will be able to install these using the "extras"
 # syntax, for example:
 #
-#   $ pip install sampleproject[dev]
+#   $ pip install {{package_name}}[dev]
 #
 # Similar to `dependencies` above, these must be valid existing
 # projects.
@@ -106,14 +106,14 @@ test = ["pytest", "pytest-cov"]
 # The following would provide a command line executable called `sample`
 # which executes the function `main` from this package when invoked.
 [project.scripts] # Optional
-sample = "sample.cli:main"
+sample = "{{package_name}}.cli:main"
 
 # This is configuration specific to the `setuptools` build backend.
 # If you are using a different build backend, you will need to change this.
 [tool.setuptools]
 # If there are data files included in your packages that need to be
 # installed, specify them here.
-package-data = { "sample" = ["*.dat"] }
+package-data = { "{{package_name}}" = ["*.dat"] }
 
 [build-system]
 # These are the assumed default build requirements from pip:
