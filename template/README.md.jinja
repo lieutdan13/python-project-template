@@ -1,9 +1,12 @@
 # {{project_name}}
 
-![coverage][] ![maintainability][]
+{% set url_pages = "http://" + remote_url.split(":")[1].split("/")[0] + ".git01.iis.fhg.de/" + "/".join(remote_url.split(":")[1].split("/")[1:]).replace(".git", "") %}
 
-[coverage]: http://{{remote_url.split(":")[1].split("/")[0]}}.git01.iis.fhg.de/{{"/".join(remote_url.split(":")[1].split("/")[1:].replace(".git", ""))}}/badges/coverage.svg
-[maintainability]: http://{{remote_url.split(":")[1].split("/")[0]}}.git01.iis.fhg.de/{{"/".join(remote_url.split(":")[1].split("/")[1:].replace(".git", ""))}}/badges/maintainability.svg
+[![documentation][badge_documentation]]({{url_pages}}) [![badge_coverage][]]({{url_pages}}/coverage) ![badge_maintainability][]
+
+[badge_documentation]: {{url_pages}}/badges/documentation.svg
+[badge_coverage]: {{url_pages}}/badges/coverage.svg
+[badge_maintainability]: {{url_pages}}/badges/maintainability.svg
 
 <!-- TODO: extend readme template -->
 
@@ -13,4 +16,4 @@
 pip install git+{{ remote_url | replace(':', '/') | replace('git@', 'https://') | replace('.git', '') }}
 ```
 
-*This project was created using the [Fraunhofer IIS Project Template for Python](https://github.com/jannismain/iis-project-template-python)*
+*This project was created using the [Fraunhofer IIS Project Template for Python](https://git01.iis.fhg.de/mkj/iis-project-template)*
