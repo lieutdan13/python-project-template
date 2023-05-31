@@ -1,0 +1,5 @@
+test:
+  image: python:latest
+  script:
+    - pip install .[test]
+    - pytest
