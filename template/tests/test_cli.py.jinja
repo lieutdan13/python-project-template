@@ -1,0 +1,9 @@
+import pytest
+
+from {{package_name}}.cli import main
+
+
+def test_add_one(capsys: pytest.CaptureFixture):
+    main()
+    output = capsys.readouterr()
+    output.out == "Hello, {{project_name}}!\n"

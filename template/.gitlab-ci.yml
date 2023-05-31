@@ -1,5 +1,43 @@
+image: python:latest
+stages: [test, publish]
+
 test:
-  image: python:latest
+  stage: test
+  cache: # reuse venv in subsequent jobs
+    key: $CI_JOB_NAME
+    paths:
+      - .cache/pip
+      - env/
+  before_script:
+    - python -m venv env
+    - source env/bin/activate
   script:
     - pip install .[test]
-    - pytest
+    - pytest --doctest-modules --cov --cov-config=pyproject.toml --cov-branch --cov-report term --cov-report html:build/coverage
+    - coverage report
+    - pip install anybadge==1.9.0
+    - mkdir -p build/badges
+    - python -m anybadge --label=Coverage --value="$(coverage report | awk '$1 == "TOTAL" {print $NF+0}')" --value-format="%d%%" -f build/badges/coverage -o
+    - pip install radon==5.1.0
+    - make maintainability
+    - python -m anybadge --label=Maintainability --value="$(python -m radon cc --total-average -nc src | tail -n 1 | cut -d' ' -f 3) ($(python -m radon cc --total-average -nc src | tail -n 1 | cut -d' ' -f 4 | cut -c 2-5))" -f build/badges/maintainability -o
+  coverage: '/TOTAL.+?(\d+\%)/'
+  artifacts:
+    paths:
+      - build/coverage
+      - build/badges
+
+pages:
+  stage: publish
+  needs:
+    - test
+  only:
+    - main
+    - staging
+  script:
+    # - make docs
+    - mv badges public/.
+    - mv build/coverage public/.
+  artifacts:
+    paths:
+      - public
