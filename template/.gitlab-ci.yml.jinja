@@ -20,7 +20,7 @@ test:
     - python -m anybadge --label=Coverage --value="$(coverage report | awk '$1 == "TOTAL" {print $NF+0}')" --value-format="%d%%" -f build/badges/coverage -o
     - pip install radon==5.1.0
     - make maintainability
-    - python -m anybadge --label=Maintainability --value="$(python -m radon cc --total-average -nc src | tail -n 1 | cut -d' ' -f 3) ($(python -m radon cc --total-average -nc src | tail -n 1 | cut -d' ' -f 4 | cut -c 2-5))" -f build/badges/maintainability -o
+    - python -m anybadge --label=Maintainability --value="$(python -m radon cc --total-average -nc src | tail -n 1 | cut -d' ' -f 3) ($(python -m radon cc --total-average -nc src | tail -n 1 | cut -d' ' -f 4 | cut -c 2-4)" -f build/badges/maintainability -o
     - python -m anybadge --label=Documentation --value="$(python -m {{package_name | replace("_", "-")}} --version)" -f build/badges/documentation -o
   coverage: '/TOTAL.+?(\d+\%)/'
   artifacts:
