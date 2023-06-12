@@ -1,2 +1,3 @@
 copier
 pytest
+pytest-venv
