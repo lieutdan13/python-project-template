@@ -2,7 +2,7 @@ site_name: {{ project_name }}
 
 repo_url: https://git01.iis.fhg.de/{{remote_url.split(":")[1]}}
 repo_name: {{remote_url.split("/")[-1] | replace('.git', '')}}
-site_url: http://{{remote_url.split(":")[1].split("/")[0]}}.git01.iis.fhg.de/{{"/".join(remote_url.split(":")[1].split("/")[1:])}}
+site_url: http://{{remote_url.split(":")[1].split("/")[0]}}.git01.iis.fhg.de/{{"/".join(remote_url.split(":")[1].split("/")[1:]) | replace('.git', '')}}
 edit_uri: -/edit/main/docs/
 
 theme:
@@ -15,13 +15,13 @@ plugins:
       fallback_to_build_date: true
   - mkdocstrings:
       default_handler: python
-      enable_inventory: True
+      enable_inventory: true
       handlers:
         python:
           paths: [src]
           options:
-            show_root_heading: True
+            show_root_heading: true
             show_category_heading: false
-            show_submodules: True
+            show_submodules: true
           import:
             - https://numpy.org/doc/stable/objects.inv
