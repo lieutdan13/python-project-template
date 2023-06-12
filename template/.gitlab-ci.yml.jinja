@@ -13,7 +13,7 @@ test:
     - source env/bin/activate
   script:
     - pip install .[test]
-    - pytest --doctest-modules --cov --cov-config=pyproject.toml --cov-branch --cov-report term --cov-report html:build/coverage
+    - pytest --doctest-modules --cov --cov-config=pyproject.toml --cov-branch --cov-report term --cov-report html:build/coverage --junitxml=report.xml
     - coverage report
     - pip install anybadge==1.9.0
     - mkdir -p build/badges
@@ -23,6 +23,9 @@ test:
     - python -m anybadge --label=Documentation --value="v$(python -m {{package_name}} --version)" --color "blue" -f build/badges/documentation -o
   coverage: '/TOTAL.+?(\d+\%)/'
   artifacts:
+    when: always
+    reports:
+      junit: report.xml
     paths:
       - build/coverage
       - build/badges
