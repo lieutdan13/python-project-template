@@ -16,4 +16,15 @@
 pip install git+{{ remote_url | replace(':', '/') | replace('git@', 'https://') | replace('.git', '') }}
 ```
 
+## Usage
+
+Call the `{{ package_name | replace("_", "-") }}` command line interface like this:
+
+```console
+$ {{ package_name | replace("_", "-") }}
+Hello, {{project_name}}!
+```
+
+Provide the `--help` option to see supported options and arguments.
+
 *This project was created using the [Fraunhofer IIS Project Template for Python](https://git01.iis.fhg.de/mkj/iis-project-template)*
