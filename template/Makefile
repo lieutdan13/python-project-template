@@ -1,5 +1,5 @@
-.PHONY: install
-install-dev:	## install development dependencies
+.PHONY: install-dev
+install-dev:	## install project including all development dependencies
 	pip install -e .[test,doc,dev]
 
 .PHONY: maintainability
@@ -7,7 +7,7 @@ maintainability:  ## run maintainability checks
 	@radon cc --total-average -nB -s src
 
 .PHONY: coverage coverage-ci
-coverage:	## collect coverage data
+coverage:	## collect coverage data and open report in browser
 	@pytest --doctest-modules --cov --cov-config=pyproject.toml --cov-branch --cov-report term --cov-report html:build/coverage
 	@test -z "$(CI)" \
 		&& ( echo "Opening 'build/coverage/index.html'..."; open build/coverage/index.html )\
@@ -16,9 +16,11 @@ coverage-ci:
 	@CI=true $(MAKE) coverage
 
 DOCS_TARGET?=build/docs
-.PHONY: docs
+.PHONY: docs docs-live
 docs:	## build documentation
 	mkdocs build --site-dir ${DOCS_TARGET}
+docs-live:	## serve documentation
+	mkdocs serve
 
 # a nice way to document Makefiles, found here: https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
