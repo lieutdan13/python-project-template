@@ -1,10 +1,10 @@
-def add_one(number: int|float) -> int|float:
-    """Increment *number* by one.
+def reverse(s: str) -> str:
+    """Reverse a given string.
 
     Args:
-        number: The number to increment.
+        s: string to reverse.
 
     Returns:
-        Increment of *number*.
+        A copy of the given string with characters in reverse order.
     """
-    return number + 1
+    return s[::-1]
