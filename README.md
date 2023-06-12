@@ -31,7 +31,7 @@ copier https://git01.iis.fhg.de/mkj/iis-project-template.git my_new_project
 
 #### Configure Remote Repository
 
-During the project creation, you will be asked about the Gitlab remote url where your project will be pushed to. You can take that moment to create a new project in Gitlab and copy its link into the questionaire. You can also change this value later by modifying the git remote associated with your project
+During the project creation, you will be asked about the Gitlab remote url where your project will be pushed to. You can take that moment to create a new project in Gitlab and copy its link into the questionnaire. You can also change this value later by modifying the git remote associated with your project
 
 ```sh
 git config remote.origin.url <url_to_project>
