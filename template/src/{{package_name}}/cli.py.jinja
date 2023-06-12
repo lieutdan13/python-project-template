@@ -5,7 +5,7 @@ import click
 @click.version_option(message="%(version)s", package_name="{{project_name | lower | replace(' ', '-') }}")
 @click.argument("input_str", required=False)
 @click.option("--capitalize", is_flag=True, required=False, help="Capitalize string")
-def main(input_str: str = None, capitalize: bool = False):
+def main(input_str: str | None = None, capitalize: bool = False):
     """Entry point for the application script.
 
     Args:
