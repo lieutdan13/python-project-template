@@ -1,0 +1,17 @@
+{
+  "python.formatting.provider": "black",
+  "python.testing.pytestArgs": ["test"],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true,
+  "cSpell.words": [
+    "bumpversion",
+    "docstrings",
+    "mkdocs",
+    "mkdocstrings",
+    "precommit",
+    "pyproject",
+    "pytest",
+    "setuptools",
+    "venv"
+  ]
+}
