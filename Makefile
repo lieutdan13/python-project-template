@@ -1,5 +1,12 @@
+COPIER_ARGS?=--UNSAFE
+COPIER_DEFAULT_VALUES?=-d "project_name=Sample Project" -d "package_name=sample_project" -d "user_name=mkj" --defaults
+
 example: example-clean
-	copier copy --UNSAFE -d "project_name=Sample Project" -d "package_name=sample_project" -d user_name=mkj --defaults . ./example
+	copier copy ${COPIER_ARGS} ${COPIER_DEFAULT_VALUES} . ./example
+	$(MAKE) example-setup
+
+example-manual: example-clean
+	copier copy ${COPIER_ARGS} . ./example
 	$(MAKE) example-setup
 
 .PHONY: example-setup
