@@ -1,7 +1,7 @@
 # {{project_name}}
 
-{%- set url_pages = "http://" + remote_url.split(":")[1].split("/")[0] + ".git01.iis.fhg.de/" + "/".join(remote_url.split(":")[1].split("/")[1:]).replace(".git", "") %}
-{%- set url_project = "http://git01.iis.fhg.de/" + remote_url.split(":")[1].replace(".git", "") %}
+{%- set url_pages = "https://" + remote_url.split(":")[1].split("/")[0] + ".git01.iis.fhg.de/" + "/".join(remote_url.split(":")[1].split("/")[1:]).replace(".git", "") %}
+{%- set url_project = "https://git01.iis.fhg.de/" + remote_url.split(":")[1].replace(".git", "") %}
 
 [![documentation][badge_documentation]]({{url_pages}}) [![badge_pipeline][]]({{url_project}}/-/pipelines) [![badge_coverage][]]({{url_pages}}/coverage) [![badge_maintainability][]]()
 

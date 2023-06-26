@@ -20,6 +20,15 @@ use_bumpversion:
   default: true
   help: Use bumpversion to manage semantic version across multiple files?
 
+docs:
+  type: str
+  choices:
+    Material for MkDocs: mkdocs
+    Sphinx: sphinx
+    None: none
+  default: "mkdocs"
+  help: Which documentation tool do you want to use?
+
 user_name:
   type: str
   help: your gitlab user name

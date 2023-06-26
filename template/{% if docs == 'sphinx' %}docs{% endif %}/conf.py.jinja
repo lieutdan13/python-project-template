@@ -1,0 +1,56 @@
+# Configuration file for the Sphinx documentation builder.
+#
+# For the full list of built-in configuration values, see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+# -- Project information -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
+project = "{{ project_name }}"
+copyright = "2023, Fraunhofer IIS"
+author = "{{ user_name }}"
+
+# -- General configuration ---------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+extensions = [
+    "myst_parser", # https://myst-parser.readthedocs.io/
+    "autodoc2", # https://sphinx-autodoc2.readthedocs.io/
+]
+
+templates_path = ["_templates"]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
+
+# -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+# https://pradyunsg.me/furo/
+html_theme = "furo"
+
+html_static_path = ["_static"]
+# html_logo = "_static/logo.png"
+
+# -- Options for sphinx-autodoc2 ---------------------------------------------
+# https://sphinx-autodoc2.readthedocs.io/en/latest/config.html
+
+autodoc2_output_dir = "reference"
+autodoc2_packages = [
+    "../src/{{package_name}}",
+]
+#autodoc2_docstring_parser_regexes = [
+#    # this will render all docstrings as Markdown
+#    (r".*", "myst"),
+#]
+autodoc2_render_plugin = "md"
+{% raw %}
+autodoc2_index_template = """
+Reference
+=========
+
+.. toctree::
+   :titlesonly:
+{% for package in top_level %}
+   {{ package }}
+{%- endfor %}
+"""
+{% endraw -%}

@@ -15,13 +15,23 @@ coverage:	## collect coverage data and open report in browser
 coverage-ci:
 	@CI=true $(MAKE) coverage
 
+{% if docs != 'none' %}
 DOCS_TARGET?=build/docs
 .PHONY: docs docs-live
 docs:	## build documentation
+{%- if docs == 'mkdocs' %}
 	mkdocs build --site-dir ${DOCS_TARGET}
+{%- elif docs == 'sphinx' %}
+	cd docs && $(MAKE) -b html
+{% endif %}
 docs-live:	## serve documentation
+{%- if docs == 'mkdocs' %}
 	mkdocs serve
+{%- elif docs == 'sphinx' %}
+	sphinx-autobuild docs build/docs/html
+{% endif %}
 
+{% endif %}
 # a nice way to document Makefiles, found here: https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 .PHONY: help
 help:

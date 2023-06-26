@@ -91,9 +91,16 @@ These tests are also executed as part of a [Gitlab continuous integration][gitla
 
 ### Documentation
 
-Projects generated from this template start with [MkDocs][] as a documentation system right out of the box, which is configured via the `./mkdocs.yaml` file to use the excellent [Material for MkDocs][] theme. Python docstrings are extracted and added as reference documentation using the [`mkdocstrings`][mkdocstrings] extension.
+Each project starts with a [README][] and [CHANGELOG][] file. Additional documentation written in Markdown can be included using one of the following documentation tools:
 
-In addition, projects start with a [README][] and [CHANGELOG][] file.
+#### Material for MkDocs
+
+Projects generated with this option start with [MkDocs][] as a documentation system right out of the box, which is configured via the `./mkdocs.yaml` file to use the excellent [Material for MkDocs][] theme. Python docstrings are extracted and added as reference documentation using the [`mkdocstrings`][mkdocstrings] extension.
+
+#### Sphinx
+
+Projects generated with this option start with [Sphinx][] as a documentation system right out of the box, which is configured via the `./conf.py` file to use the excellent [Furo][] theme. [`myst`][myst] is included to add support for Markdown. Python docstrings are extracted and added as reference documentation using the [`.. automodule`][automodule] directive.
+
 
 Learn more about [good documentation practices][documentation].
 
@@ -108,6 +115,8 @@ Learn more about [good documentation practices][documentation].
 [gitlab coverage report]: https://docs.gitlab.com/ee/ci/yaml/artifacts_reports.html#artifactsreportscoverage_report
 [mypy]: https://mypy.readthedocs.io/
 [pipx]: https://pypa.github.io/pipx/
+[sphinx]: https://www.sphinx-doc.org
+[myst]: https://myst-parser.readthedocs.io/
 
 [readme]: https://intern.iis.fhg.de/x/I5DPFQ
 [changelog]: https://intern.iis.fhg.de/x/7jCzFQ
