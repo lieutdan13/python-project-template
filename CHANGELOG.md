@@ -16,6 +16,13 @@ Started this template by forking [pypa/sampleproject](https://github.com/pypa/sa
   - the project script can now be executed additionally via `python -m sample`
 - add option to use `bumpversion`
 - add option to use `pre-commit`
+- add option to choose between mkdocs and sphinx documentation
+- add Gitlab CI pipeline configuration to
+  - run tests
+  - collect test coverage and publish it as [Gitlab report artefact](https://docs.gitlab.com/ee/ci/yaml/artifacts_reports.html#artifactsreportscoverage_report)
+  - calculate maintainability metric
+  - generate badges that are shown in the README
+  - generate documentation and publish to [Gitlab Pages](https://docs.gitlab.com/ee/user/project/pages/)
 
 ### Changed
 
