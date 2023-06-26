@@ -1,0 +1,100 @@
+site_name: IIS Project Template for Python
+
+repo_url: https://git01.iis.fhg.de/mkj/iis-project-template
+repo_name: iis-project-template
+site_url: http://mkj.git01.iis.fhg.de/iis-project-template
+edit_uri: -/edit/main/docs/
+
+theme:
+  name: material
+  icon:
+    logo: material/satellite-variant
+  favicon: assets/material-satellite-variant.svg
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.indexes
+    - navigation.top
+    - navigation.tabs
+    - navigation.sections
+    - content.code.annotate
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/toggle-switch-off-outline
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: amber
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to light mode
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      type: timeago
+      fallback_to_build_date: true
+  - exclude:
+      glob:
+        - util/*
+  - literate-nav:
+      nav_file: _nav.md
+      implicit_index: true
+  - macros: # see https://mkdocs-macros-plugin.readthedocs.io/
+      include_dir: .
+      module_name: docs/util/macros.py
+  - autorefs
+
+markdown_extensions:
+  - abbr
+  - meta
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.magiclink:
+      hide_protocol: True
+      provider: gitlab
+      user: atria
+      repo: rfcomponent-chain-python
+      repo_url_shortener: True
+      repo_url_shorthand: True
+  - footnotes
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - md_in_html
+  - toc:
+      marker: ""
+      permalink: "#"
+      permalink_title: "Link to this section"
+      toc_depth: "2-3"
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+extra_javascript:
+  # pymdownx.magiclink customization
+  - assets/magiclink.js
+
+extra_css:
+  # - https://cdn.jsdelivr.net/gh/rod2ik/cdn@main/mkdocs/css/columns.css # https://eskool.gitlab.io/mkhack3rs/columns/
+  # pymdownx.magiclink customization
+  - assets/magiclink.css
+  - assets/custom.css
+
+extra:
+  generator: false
