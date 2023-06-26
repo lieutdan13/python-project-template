@@ -1,19 +1,20 @@
 # IIS Project Template for Python
 
-An opinionated project template for Python projects.
+A customizable template for new Python projects to get you up and running with current best practices faster.
 
 ## Features
 
-* Each project has a [README][] and [CHANGELOG][] file
+* Each project has a [README][] and [CHANGELOG][] file and include further documentation based on [Material for MkDocs][] or [Sphinx][].
 * [Testing][] and [continuous integration][ci] tooling are included from the very beginning
   * Test coverage is collected and displayed as a badge
   * Coverage report is integrated with [Gitlab's coverage report artifact][gitlab coverage report]
-* Projects are documented using [MkDocs][] with the [Material for MkDocs][] theme
 * Projects use [pre-commit][] to ensure adherence to a [coding style][] on the client side
 * Projects use bumpversion to increase their version according to [semantic versioning guidelines][semver]
 * Python projects are installable
 
-See this [sample project](https://git01.iis.fhg.de/mkj/sample-project) to see how projects generated from this template look like.
+Everything comes pre-configured with sensible defaults so you can focus on your implementation and let the template handle the rest.
+
+See this [sample project](https://git01.iis.fhg.de/mkj/sample-project) to see how projects generated from this template using default values look like.
 
 ## Getting Started
 
@@ -101,8 +102,12 @@ Projects generated with this option start with [MkDocs][] as a documentation sys
 
 Projects generated with this option start with [Sphinx][] as a documentation system right out of the box, which is configured via the `./conf.py` file to use the excellent [Furo][] theme. [`myst`][myst] is included to add support for Markdown. Python docstrings are extracted and added as reference documentation using the [`.. automodule`][automodule] directive.
 
-
 Learn more about [good documentation practices][documentation].
+
+## Known Issues
+
+* Do not name your project `test`. It will mess with [`pytest`'s automatic test discovery mechanism](https://docs.pytest.org/explanation/goodpractices.html#conventions-for-python-test-discovery).
+
 
 [pre-commit]: https://pre-commit.com/
 [semver]: https://semver.org/
