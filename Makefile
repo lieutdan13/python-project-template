@@ -1,5 +1,5 @@
 example: example-clean
-	copier -d "project_name=Sample Project" -d "package_name=sample_project" -d user_name=mkj --defaults . ./example
+	copier copy --UNSAFE -d "project_name=Sample Project" -d "package_name=sample_project" -d user_name=mkj --defaults . ./example
 	$(MAKE) example-setup
 
 .PHONY: example-setup
