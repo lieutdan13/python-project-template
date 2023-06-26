@@ -19,5 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial Release
 
-[unreleased]: {{remote_url}}/compare/v0.0.1...HEAD
-[0.0.1]: {{remote_url}}/releases/tag/v0.0.1
+{% set remote = remote_url | replace(":", "/") | replace("git@", "https://") %}
+
+[unreleased]: {{remote}}/compare/v0.0.1...HEAD
+[0.0.1]: {{remote}}/releases/tag/v0.0.1
