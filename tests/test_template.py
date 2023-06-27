@@ -34,11 +34,13 @@ def venv(tmp_path):
 # @pytest.mark.parametrize("project_name", ["Sample Project"])
 @pytest.mark.parametrize("use_precommit",[True, False],ids=["pre-commit", "no pre-commit"])
 @pytest.mark.parametrize("use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"])
+@pytest.mark.parametrize("docs", ['mkdocs', 'sphinx'])
 def test_template_generation(
     venv: VirtualEnvironment,
     tmp_path: Path,
     use_precommit: bool,
     use_bumpversion: bool,
+    docs: str,
     project_name: str = "Sample Project",
 ):
     run_copy(
@@ -49,8 +51,10 @@ def test_template_generation(
             package_name=project_name.lower().replace(" ", "_"),
             use_precommit=use_precommit,
             use_bumpversion=use_bumpversion,
+            docs=docs,
             **static_data,
         ),
+        unsafe=True,
     )
 
     fp_readme = tmp_path / "README.md"
