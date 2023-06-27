@@ -1,8 +1,10 @@
 site_name: {{ project_name }}
 
-repo_url: {{ remote_url | replace(':', '/') | replace('git@', 'https://') | replace('.git', '') }}
-repo_name: {{remote_url.split("/")[-1] | replace('.git', '')}}
-site_url: https://{{remote_url.split(":")[1].split("/")[0]}}.git01.iis.fhg.de/{{"/".join(remote_url.split(":")[1].split("/")[1:]) | replace('.git', '')}}
+{%- import 'template/context' as ctx with context %}
+
+repo_url: {{ ctx.remote_url_https }}
+repo_name: {{ package_name }}
+site_url: {{ ctx.remote_url_pages }}
 edit_uri: -/edit/main/docs/
 
 theme:

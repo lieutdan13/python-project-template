@@ -1,29 +1,28 @@
 # {{project_name}}
 
-{%- set url_pages = "https://" + remote_url.split(":")[1].split("/")[0] + ".git01.iis.fhg.de/" + "/".join(remote_url.split(":")[1].split("/")[1:]).replace(".git", "") %}
-{%- set url_project = "https://git01.iis.fhg.de/" + remote_url.split(":")[1].replace(".git", "") %}
+{%- import 'template/context' as ctx with context %}
 
-[![documentation][badge_documentation]]({{url_pages}}) [![badge_pipeline][]]({{url_project}}/-/pipelines) [![badge_coverage][]]({{url_pages}}/coverage) [![badge_maintainability][]]()
+[![documentation][badge_documentation]]({{ctx.remote_url_pages}}) [![badge_pipeline][]]({{ctx.remote_url_https}}/-/pipelines) [![badge_coverage][]]({{ctx.remote_url_pages}}/coverage) [![badge_maintainability][]]()
 
-[badge_documentation]: {{url_pages}}/badges/documentation.svg
-[badge_coverage]: {{url_project}}/badges/main/coverage.svg
-[badge_pipeline]: {{url_project}}/badges/main/pipeline.svg
-[badge_maintainability]: {{url_pages}}/badges/maintainability.svg
+[badge_documentation]: {{ctx.remote_url_pages}}/badges/documentation.svg
+[badge_coverage]: {{ctx.remote_url_https}}/badges/main/coverage.svg
+[badge_pipeline]: {{ctx.remote_url_https}}/badges/main/pipeline.svg
+[badge_maintainability]: {{ctx.remote_url_pages}}/badges/maintainability.svg
 
 <!-- TODO: extend readme template -->
 
 ## Installation
 
 ```console
-pip install git+{{ remote_url | replace(':', '/') | replace('git@', 'https://') | replace('.git', '') }}
+pip install git+{{ ctx.remote_url_https }}
 ```
 
 ## Usage
 
-Call the `{{ package_name | replace("_", "-") }}` command line interface like this:
+Call the `{{ ctx.cli_command }}` command line interface like this:
 
 ```console
-$ {{ package_name | replace("_", "-") }}
+$ {{ ctx.cli_command }}
 Hello, {{project_name}}!
 ```
 

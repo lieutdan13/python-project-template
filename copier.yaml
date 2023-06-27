@@ -39,6 +39,7 @@ remote_url:
   default: git@git01.iis.fhg.de:{{user_name}}/{{project_name | lower | replace(' ', '-')}}.git
 
 _tasks:
+  - "rm -rf context"
   - "git init"
   - "git remote add origin {{remote_url}}"
   - "{% if use_precommit %}pre-commit install{% endif %}"

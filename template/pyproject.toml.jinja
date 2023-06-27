@@ -1,3 +1,4 @@
+{%- import 'template/context' as ctx with context %}
 [project]
 # This is the name of your project. The first time you publish this
 # package, this name will be registered for you. It will determine how
@@ -90,7 +91,7 @@ doc = [
 # The following would provide a command line executable which executes
 # the function `main` from this package's cli module when invoked.
 [project.scripts] # Optional
-{{ package_name | replace("_", "-") }} = "{{package_name}}.cli:main"
+{{ ctx.cli_command }} = "{{package_name}}.cli:main"
 
 # This is configuration specific to the `setuptools` build backend.
 # If you are using a different build backend, you will need to change this.
