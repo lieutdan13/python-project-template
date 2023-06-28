@@ -18,7 +18,8 @@ template_variables = {
 fp_template = Path(__file__).parent.parent
 
 static_data = dict(
-    user_name="mkj", remote_url="git@git01.iis.fhg.de:mkj/sample-project.git"
+    user_name="mkj",
+    remote_url="git@git01.iis.fhg.de:mkj/sample-project.git",
 )
 
 
@@ -32,9 +33,13 @@ def venv(tmp_path):
 
 
 # @pytest.mark.parametrize("project_name", ["Sample Project"])
-@pytest.mark.parametrize("use_precommit",[True, False],ids=["pre-commit", "no pre-commit"])
-@pytest.mark.parametrize("use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"])
-@pytest.mark.parametrize("docs", ['mkdocs', 'sphinx'])
+@pytest.mark.parametrize(
+    "use_precommit", [True, False], ids=["pre-commit", "no pre-commit"]
+)
+@pytest.mark.parametrize(
+    "use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"]
+)
+@pytest.mark.parametrize("docs", ["mkdocs", "sphinx"])
 def test_template_generation(
     venv: VirtualEnvironment,
     tmp_path: Path,
@@ -47,7 +52,7 @@ def test_template_generation(
         str(fp_template),
         str(tmp_path),
         data=dict(
-            project_name="Sample Project",
+            project_name=project_name,
             package_name=project_name.lower().replace(" ", "_"),
             use_precommit=use_precommit,
             use_bumpversion=use_bumpversion,

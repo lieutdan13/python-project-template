@@ -1,3 +1,4 @@
 copier
 pytest
 pytest-venv
+black
