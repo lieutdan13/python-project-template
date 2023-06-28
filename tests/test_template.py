@@ -79,6 +79,17 @@ def test_template_generation(
     fp_git = tmp_path / ".git"
     assert fp_git.is_dir(), "new projects should be git repositories"
 
+    fp_docs = tmp_path / "docs"
+    if docs == "mkdocs":
+        fp_mkdocs_cfg = tmp_path / "mkdocs.yml"
+        assert fp_mkdocs_cfg.is_file(), "mkdocs configuration file should exist"
+    elif docs == "sphinx":
+        fp_sphinx_cfg = fp_docs / "conf.py"
+        assert fp_sphinx_cfg.is_file(), "sphinx configuration file should exist"
+
+    use_docs = docs != "none"
+    assert fp_docs.is_dir() == use_docs, "docs directory should exist if configured"
+
     fp_git_config = fp_git / "config"
     git_config = fp_git_config.read_text()
     assert (
