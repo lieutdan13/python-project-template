@@ -26,3 +26,7 @@ example-push:
 .PHONY: example-clean
 example-clean:
 	rm -rf example && mkdir example
+
+.PHONY: test
+test:
+	pytest -n 12

@@ -1,4 +1,5 @@
 copier
 pytest
 pytest-venv
+pytest-xdist
 black
