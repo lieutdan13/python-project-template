@@ -17,18 +17,21 @@ coverage-ci:
 
 {% if docs != 'none' %}
 DOCS_TARGET?=build/docs
+{%- if docs == 'mkdocs' %}
+MKDOCS_BIN?=mkdocs
+{% endif %}
 .PHONY: docs docs-live
 docs:	## build documentation
 {%- if docs == 'mkdocs' %}
-	mkdocs build --site-dir ${DOCS_TARGET}
+	${MKDOCS_BIN} build --site-dir ${DOCS_TARGET}/html
 {%- elif docs == 'sphinx' %}
-	cd docs && $(MAKE) -b html
+	cd docs && BUILDDIR=../${DOCS_TARGET} $(MAKE) -b html
 {% endif %}
 docs-live:	## serve documentation
 {%- if docs == 'mkdocs' %}
 	mkdocs serve
 {%- elif docs == 'sphinx' %}
-	sphinx-autobuild docs build/docs/html
+	sphinx-autobuild docs ${DOCS_TARGET}/livehtml
 {% endif %}
 
 {% endif %}

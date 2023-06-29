@@ -39,7 +39,7 @@ def venv(tmp_path):
 @pytest.mark.parametrize(
     "use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"]
 )
-@pytest.mark.parametrize("docs", ["mkdocs", "sphinx"])
+@pytest.mark.parametrize("docs", ["mkdocs", "sphinx", "none"])
 def test_template_generation(
     venv: VirtualEnvironment,
     tmp_path: Path,
@@ -111,5 +111,21 @@ def test_template_generation(
 
     # verify that pytest works and all tests pass
     check_output([venv_bin / "pytest", "-q"])
+
+    # verify docs can be built
+    if use_docs:
+        fp_docs_built = tmp_path / "build" / "docs" / "html"
+        assert not fp_docs_built.is_dir()
+        check_output(
+            ["make", "docs"],
+            env={
+                "SPHINXBUILD": str(venv_bin / "sphinx-build"),
+                "MKDOCS_BIN": str(venv_bin / "mkdocs"),
+            },
+        )
+        assert (
+            fp_docs_built.is_dir()
+        ), "docs should have been built into build directory"
+        assert (fp_docs_built / "index.html").is_file(), "index should exist"
 
     # TODO: Test template update
