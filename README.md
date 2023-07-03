@@ -33,7 +33,7 @@ copier copy --UNSAFE https://git01.iis.fhg.de/mkj/iis-project-template.git my_ne
 
 *Note: the `--UNSAFE` flag is required because the template uses [tasks][] to setup your git repository for you.*
 
-[tasks]: https://git01.iis.fhg.de/mkj/iis-project-template/-/blob/main/copier.yaml#L32
+[tasks]: https://git01.iis.fhg.de/mkj/iis-project-template/-/blob/main/copier.yaml
 
 ### Next Steps
 
