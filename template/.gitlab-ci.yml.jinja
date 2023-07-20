@@ -50,6 +50,7 @@ pages:
     - source env/bin/activate
     - pip install .[doc]
     - DOCS_TARGET=public make docs
+    - mv public/html/* public/. && rm -r public/html
     - mv build/badges public/.
     - mv build/coverage public/.
   artifacts:
