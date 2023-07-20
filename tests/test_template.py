@@ -9,9 +9,7 @@ from pytest_venv import VirtualEnvironment
 
 template_variables = {
     var
-    for var in yaml.safe_load(
-        Path(__file__).parent.with_name("copier.yaml").read_text()
-    )
+    for var in yaml.safe_load(Path(__file__).parent.with_name("copier.yaml").read_text())
     if not var.startswith("_")
 }
 
@@ -33,12 +31,8 @@ def venv(tmp_path):
 
 
 # @pytest.mark.parametrize("project_name", ["Sample Project"])
-@pytest.mark.parametrize(
-    "use_precommit", [True, False], ids=["pre-commit", "no pre-commit"]
-)
-@pytest.mark.parametrize(
-    "use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"]
-)
+@pytest.mark.parametrize("use_precommit", [True, False], ids=["pre-commit", "no pre-commit"])
+@pytest.mark.parametrize("use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"])
 @pytest.mark.parametrize("docs", ["mkdocs", "sphinx", "none"])
 def test_template_generation(
     venv: VirtualEnvironment,
@@ -68,9 +62,7 @@ def test_template_generation(
     assert readme_content.startswith(
         f"# {project_name}"
     ), "README should start with the project name"
-    assert (
-        "## Installation" in readme_content
-    ), "README should have a getting started section"
+    assert "## Installation" in readme_content, "README should have a getting started section"
 
     fp_changelog = tmp_path / "CHANGELOG.md"
     assert fp_changelog.is_file(), "new projects should have a CHANGELOG file"
@@ -123,9 +115,7 @@ def test_template_generation(
                 "MKDOCS_BIN": str(venv_bin / "mkdocs"),
             },
         )
-        assert (
-            fp_docs_built.is_dir()
-        ), "docs should have been built into build directory"
+        assert fp_docs_built.is_dir(), "docs should have been built into build directory"
         assert (fp_docs_built / "index.html").is_file(), "index should exist"
 
     # TODO: Test template update
