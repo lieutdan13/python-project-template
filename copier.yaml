@@ -42,4 +42,4 @@ _tasks:
   - "rm -rf context"
   - "git init"
   - "git remote add origin {{remote_url}}"
-  - "{% if use_precommit %}pre-commit install{% endif %}"
+  - "{% if use_precommit %}pre-commit install || echo 'Error during installation of pre-commit hooks. Is pre-commit installed?'{% endif %}"
