@@ -27,7 +27,6 @@ See this [sample project](https://git01.iis.fhg.de/mkj/sample-project) to see ho
 ### Usage
 
 ```console
-mkdir my_new_project
 copier copy --UNSAFE https://git01.iis.fhg.de/mkj/iis-project-template.git my_new_project
 ```
 
