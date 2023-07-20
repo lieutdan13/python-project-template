@@ -52,6 +52,8 @@ git commit -m "initial commit"
 git push -u origin main
 ```
 
+**Note**: Depending on which *default_branch* you configured, you might need to replace `main` with the name of your default branch.
+
 #### Install Project
 
 The new project is installable right away. Create a virtual environment using any method you like, for example using the builtin `venv` module:

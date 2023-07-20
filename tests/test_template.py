@@ -129,3 +129,25 @@ def test_template_generation(
         assert (fp_docs_built / "index.html").is_file(), "index should exist"
 
     # TODO: Test template update
+
+
+def test_default_branch_option(tmp_path: Path):
+    default_branch = "custom"
+    run_copy(
+        str(fp_template),
+        str(tmp_path),
+        data=dict(
+            project_name="Sample Project",
+            **static_data,
+        ),
+        unsafe=True,
+        defaults=True,
+        user_defaults={"default_branch": default_branch},
+    )
+    assert (
+        check_output(["git", "status", "--branch", "--porcelain"], cwd=str(tmp_path))
+        .decode()
+        .split("\n")[0]  # first line -> branch info
+        .split()[-1]  # last word -> branch
+        == default_branch
+    )

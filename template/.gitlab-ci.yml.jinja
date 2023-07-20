@@ -43,7 +43,7 @@ pages:
   needs:
     - test
   only:
-    - main
+    - {{default_branch}}
     - staging
   script:
     - mkdir -p public
