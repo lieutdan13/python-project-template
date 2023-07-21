@@ -31,7 +31,7 @@ docs:
 
 user_name:
   type: str
-  help: your gitlab user name
+  help: User name (e.g. the one used with your hosted git provider)
 
 remote_url:
   type: str
