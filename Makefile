@@ -6,7 +6,7 @@ example: example-clean
 	$(MAKE) example-setup
 
 example-manual: example-clean
-	copier copy ${COPIER_ARGS} . ./example
+	copier copy ${COPIER_ARGS} -d "project_name=Sample Project" -d "package_name=sample_project" . ./example
 	$(MAKE) example-setup
 
 .PHONY: example-setup
