@@ -27,10 +27,10 @@ See this [sample project](https://git01.iis.fhg.de/mkj/sample-project) to see ho
 ### Usage
 
 ```console
-copier copy --UNSAFE https://git01.iis.fhg.de/mkj/iis-project-template.git my_new_project
+copier copy --trust https://git01.iis.fhg.de/mkj/iis-project-template.git my_new_project
 ```
 
-*Note: the `--UNSAFE` flag is required because the template uses [tasks][] to setup your git repository for you.*
+*Note: `--trust` is required because the template uses [tasks][] to setup your git repository for you.*
 
 [tasks]: https://git01.iis.fhg.de/mkj/iis-project-template/-/blob/main/copier.yaml
 

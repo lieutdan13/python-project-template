@@ -1,4 +1,4 @@
-COPIER_ARGS?=--UNSAFE
+COPIER_ARGS?=--trust
 COPIER_DEFAULT_VALUES?=-d "project_name=Sample Project" -d "package_name=sample_project" -d "user_name=mkj" --defaults
 
 example: example-clean
