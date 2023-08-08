@@ -27,12 +27,12 @@ See this [sample project](https://git01.iis.fhg.de/mkj/sample-project) to see ho
 ### Usage
 
 ```console
-copier copy --trust https://git01.iis.fhg.de/mkj/iis-project-template.git my_new_project
+copier copy --trust https://git01.iis.fhg.de/mkj/project-template.git my_new_project
 ```
 
 *Note: `--trust` is required because the template uses [tasks][] to setup your git repository for you.*
 
-[tasks]: https://git01.iis.fhg.de/mkj/iis-project-template/-/blob/main/copier.yaml
+[tasks]: https://git01.iis.fhg.de/mkj/project-template/-/blob/main/copier.yaml
 
 ### Next Steps
 
