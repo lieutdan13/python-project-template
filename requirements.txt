@@ -11,3 +11,4 @@ mkdocs-macros-plugin
 mkdocs-macros-includex
 mkdocs-exclude
 mkdocs-autorefs
+pyyaml
