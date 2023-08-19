@@ -1,4 +1,4 @@
-{%- import 'template/context' as ctx with context %}
+{%- import 'template/context' as ctx with context -%}
 [project]
 # This is the name of your project. The first time you publish this
 # package, this name will be registered for you. It will determine how
@@ -116,11 +116,7 @@ source = ["src", "tests"]
 [tool.coverage.report]
 omit = ["**/setup.py", "**/__init__.py", "**/__main__.py"]
 
-exclude_lines = [
-  "pragma: no cover",
-  "# nocov",
-  "if __name__ == .__main__.",
-]
+exclude_lines = ["if __name__ == .__main__."]
 
 [tool.coverage.html]
 directory = "build/coverage"
