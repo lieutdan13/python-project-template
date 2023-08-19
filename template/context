@@ -12,6 +12,14 @@
 {% set pages_path = "/".join(path.split("/")[1:]) %}
 
 {% set remote_url_https = "https://" + domain + "/" + path %}
-{% set remote_url_pages = "https://" + group + "." + domain + "/" + pages_path %}
+
+{% if remote == 'github' %}
+{% set domain_pages = 'github.io' %}
+{% elif remote == 'gitlab-iis' %}
+{% set domain_pages = domain %}
+{% elif remote == 'gitlab-fhg' %}
+{% set domain_pages = 'pages.fraunhofer.de' %}
+{% endif %}
+{% set remote_url_pages = "https://" + group + "." + domain_pages + "/" + pages_path %}
 
 {% set cli_command = package_name | replace("_", "-") %}

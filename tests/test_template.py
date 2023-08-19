@@ -7,17 +7,15 @@ import yaml
 from copier import run_copy
 from pytest_venv import VirtualEnvironment
 
-template_variables = {
-    var
-    for var in yaml.safe_load(Path(__file__).parent.with_name("copier.yaml").read_text())
-    if not var.startswith("_")
-}
+template = yaml.safe_load(Path(__file__).parent.with_name("copier.yaml").read_text())
+SUPPORTED_REMOTES = template["remote"]["choices"].values()
+SUPPORTED_DOCS = template["docs"]["choices"].values()
 
 fp_template = Path(__file__).parent.parent
 
-static_data = dict(
+required_static_data = dict(
+    project_name="Sample Project",
     user_name="mkj",
-    remote_url="git@git01.iis.fhg.de:mkj/sample-project.git",
 )
 
 
@@ -30,29 +28,31 @@ def venv(tmp_path):
     yield venv
 
 
-# @pytest.mark.parametrize("project_name", ["Sample Project"])
+@pytest.mark.slow
 @pytest.mark.parametrize("use_precommit", [True, False], ids=["pre-commit", "no pre-commit"])
 @pytest.mark.parametrize("use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"])
-@pytest.mark.parametrize("docs", ["mkdocs", "sphinx", "none"])
+@pytest.mark.parametrize("docs", SUPPORTED_DOCS)
+@pytest.mark.parametrize("remote", SUPPORTED_REMOTES)
 def test_template_generation(
     venv: VirtualEnvironment,
     tmp_path: Path,
     use_precommit: bool,
     use_bumpversion: bool,
     docs: str,
+    remote: str,
     project_name: str = "Sample Project",
 ):
     run_copy(
         str(fp_template),
         str(tmp_path),
         data=dict(
-            project_name=project_name,
-            package_name=project_name.lower().replace(" ", "_"),
+            **required_static_data,
             use_precommit=use_precommit,
             use_bumpversion=use_bumpversion,
             docs=docs,
-            **static_data,
+            remote=remote,
         ),
+        defaults=True,
         unsafe=True,
     )
 
@@ -128,7 +128,7 @@ def test_default_branch_option(tmp_path: Path):
         str(tmp_path),
         data=dict(
             project_name="Sample Project",
-            **static_data,
+            user_name="mkj",
         ),
         unsafe=True,
         defaults=True,
@@ -141,3 +141,39 @@ def test_default_branch_option(tmp_path: Path):
         .split()[-1]  # last word -> branch
         == default_branch
     )
+
+
+@pytest.mark.parametrize("remote", SUPPORTED_REMOTES)
+def test_remote_option(tmp_path: Path, remote: str):
+    user_name = "foo"
+    project_name = "Wonderful Project"
+
+    run_copy(
+        str(fp_template),
+        str(tmp_path),
+        data=dict(
+            project_name=project_name,
+            remote=remote,
+            user_name=user_name,
+        ),
+        unsafe=True,
+        defaults=True,
+    )
+
+    git_remote_output = check_output(["git", "remote", "-v"], cwd=str(tmp_path)).decode()
+    branch, remote_url, _ = git_remote_output.split("\n")[0].split()
+
+    readme_template_url = (tmp_path / "README.md").open().readlines()[-1].strip()
+
+    if remote == "gitlab":
+        assert remote_url == f"git@github.com:{user_name}/wonderful-project.git"
+        assert (tmp_path / ".github").is_dir()
+        assert "github.com" in readme_template_url
+    if remote.startswith("gitlab"):
+        assert (tmp_path / ".gitlab-ci.yml").is_file()
+    if remote.endswith("iis"):
+        assert remote_url == f"git@git01.iis.fhg.de:{user_name}/wonderful-project.git"
+        assert "git01.iis.fhg.de" in readme_template_url
+    if remote.endswith("fhg"):
+        assert remote_url == f"git@gitlab.cc-asp.fraunhofer.de:{user_name}/wonderful-project.git"
+        assert "gitlab.cc-asp.fraunhofer.de" in readme_template_url

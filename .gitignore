@@ -6,3 +6,4 @@ example
 !.vscode/settings.json
 !.vscode/extensions.json
 *.egg-info
+build

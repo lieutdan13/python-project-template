@@ -29,6 +29,14 @@ docs:
   default: "mkdocs"
   help: Which documentation tool do you want to use?
 
+remote:
+  choices:
+    GitHub: github
+    FHG Gitlab: gitlab-fhg
+    IIS Gitlab: gitlab-iis
+  help: Which platform will your project be hosted on?
+  default: "github"
+
 user_name:
   type: str
   help: User name (e.g. the one used with your hosted git provider)
@@ -36,7 +44,7 @@ user_name:
 remote_url:
   type: str
   help: URL of the remote repository
-  default: git@git01.iis.fhg.de:{{user_name}}/{{project_name | lower | replace(' ', '-')}}.git
+  default: git@{% if remote=='github' %}github.com{% elif remote=='gitlab-iis' %}git01.iis.fhg.de{% elif remote=='gitlab-fhg' %}gitlab.cc-asp.fraunhofer.de{% endif %}:{{user_name}}/{{project_name | lower | replace(' ', '-')}}.git
 
 default_branch:
   type: str

@@ -1,4 +1,4 @@
-# IIS Project Template for Python
+# Python Project Template
 
 A customizable template for new Python projects to get you up and running with current best practices faster.
 
@@ -89,7 +89,7 @@ An example command line interface is included in the `./src/cli.py` module.
 
 Python tests are implemented using [pytest][] in the `./test/` subdirectory. Each test module starts with `test_` so it is automatically discovered when running `pytest`.
 
-These tests are also executed as part of a [Gitlab continuous integration][gitlab ci] pipeline, which is configured via the [`.gitlab-ci.yml`][.gitlab-ci.yml] file.
+When a Gitlab remote is configured, these tests are also executed as part of a [Gitlab continuous integration][gitlab ci] pipeline, which is configured via the [`.gitlab-ci.yml`][.gitlab-ci.yml] file.
 
 ### Documentation
 

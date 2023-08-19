@@ -37,7 +37,7 @@ test:
       - build/coverage
       - build/badges
       - env/
-
+{% if docs != 'none' %}
 pages:
   stage: publish
   needs:
@@ -56,3 +56,4 @@ pages:
   artifacts:
     paths:
       - public
+{% endif -%}
