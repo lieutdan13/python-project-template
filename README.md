@@ -79,7 +79,7 @@ The Python project structure consists of the following elements
 * `./src/`: folder that contains the Python packages and modules you want to develop
 * `./test/`: folder that contains tests of your Python code
 
-While other structures are possible, this one has proven itself (and it also the one suggested by the [Python Packaging Authority][pypa] in their [Python Packaging User Guide][] and corresponding [sample project][pypa sample project]). Modern Python packaging tools, like setuptools, will recognize this project structure without further need for configuration.
+While other structures are possible, this one has proven itself (and it also the one suggested by the [Python Packaging Authority][pypa] in their [Python Packaging User Guide][] and corresponding [sample project][pypa sample project]). Modern Python packaging tools, like setuptools, will recognize this convention and require no further configuration.
 
 ### Command Line Interface
 
