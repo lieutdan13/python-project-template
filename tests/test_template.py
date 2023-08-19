@@ -177,3 +177,76 @@ def test_remote_option(tmp_path: Path, remote: str):
     if remote.endswith("fhg"):
         assert remote_url == f"git@gitlab.cc-asp.fraunhofer.de:{user_name}/wonderful-project.git"
         assert "gitlab.cc-asp.fraunhofer.de" in readme_template_url
+
+
+@pytest.mark.parametrize("docs", SUPPORTED_DOCS)
+def test_docs_option(venv: VirtualEnvironment, tmp_path: Path, docs: str):
+    root = tmp_path
+
+    run_copy(
+        str(fp_template),
+        str(root),
+        data=dict(
+            **required_static_data,
+            docs=docs,
+        ),
+        defaults=True,
+        unsafe=True,
+    )
+
+    if docs == "mkdocs":
+        fp_mkdocs_cfg = root / "mkdocs.yml"
+        assert fp_mkdocs_cfg.is_file(), "mkdocs configuration file should exist"
+    elif docs == "sphinx":
+        fp_sphinx_cfg = root / "docs" / "conf.py"
+        assert fp_sphinx_cfg.is_file(), "sphinx configuration file should exist"
+
+    if docs != "none":
+        assert (root / "docs").is_dir(), "docs directory should exist"
+
+        # install example including its doc requirements
+        venv.install(f"{root}[doc]", editable=True)
+        venv_bin = Path(venv.bin)
+
+        # verify docs can be built
+        fp_docs_built = tmp_path / "build" / "docs" / "html"
+        assert not fp_docs_built.is_dir()
+        check_output(
+            ["make", "docs"],
+            env={
+                "SPHINXBUILD": str(venv_bin / "sphinx-build"),
+                "MKDOCS_BIN": str(venv_bin / "mkdocs"),
+            },
+            cwd=tmp_path,
+        )
+        assert fp_docs_built.is_dir(), "docs should have been built into build directory"
+        assert (fp_docs_built / "index.html").is_file(), "index should exist"
+
+
+@pytest.mark.parametrize("docs", SUPPORTED_DOCS)
+@pytest.mark.parametrize("remote", SUPPORTED_REMOTES)
+def test_publish_docs_ci(venv: VirtualEnvironment, tmp_path: Path, docs: str, remote: str):
+    root = tmp_path
+
+    run_copy(
+        str(fp_template),
+        str(root),
+        data=dict(
+            **required_static_data,
+            docs=docs,
+            remote=remote,
+        ),
+        defaults=True,
+        unsafe=True,
+    )
+
+    ci_platform = "gitlab" if remote.startswith("gitlab") else remote
+
+    if ci_platform == "gitlab":
+        gitlab_ci_config = yaml.safe_load((root / ".gitlab-ci.yml").read_text())
+
+    match (docs, ci_platform):
+        case ("none", "github"):
+            assert not (root / ".github" / "docs.yaml").is_file()
+        case ("none", "gitlab"):
+            assert "pages" not in gitlab_ci_config
