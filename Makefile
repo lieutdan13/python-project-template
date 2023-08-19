@@ -1,32 +1,55 @@
-COPIER_ARGS?=--trust
-COPIER_DEFAULT_VALUES?=-d "project_name=Sample Project" -d "package_name=sample_project" -d "user_name=mkj" --defaults
+USER_NAME?=jannismain
+REMOTE?=github
+REMOTE_URL?=git@github.com:jannismain/python-project-template-example.git
 
-example: example-clean
-	copier copy ${COPIER_ARGS} ${COPIER_DEFAULT_VALUES} . ./example
-	$(MAKE) example-setup
+examples: example-github example-gitlab-fhg example-gitlab-iis
+example-github: example-clean-github example example-setup
+example-gitlab-fhg: example-clean-gitlab-fhg
+	$(MAKE) example USER_NAME=mkj REMOTE=gitlab-fhg REMOTE_URL=git@gitlab.cc-asp.fraunhofer.de:mkj/sample-project.git
+	$(MAKE) example-setup REMOTE=gitlab-fhg
+example-gitlab-iis: example-clean-gitlab-iis
+	$(MAKE) example USER_NAME=mkj REMOTE=gitlab-iis REMOTE_URL=git@git01.iis.fhg.de:mkj/sample-project.git
+	$(MAKE) example-setup REMOTE=gitlab-iis
 
 example-manual: example-clean
 	copier copy ${COPIER_ARGS} -d "project_name=Sample Project" -d "package_name=sample_project" . ./example
 	$(MAKE) example-setup
 
-.PHONY: example-setup
+COPIER_ARGS?=--trust
+COPIER_DEFAULT_VALUES?=-d "project_name=Sample Project" -d "package_name=sample_project" --defaults
+EXAMPLE_DIR=./build/example_$(subst -,_,$(REMOTE))
+example:
+	copier copy ${COPIER_ARGS} ${COPIER_DEFAULT_VALUES} -d "user_name=${USER_NAME}" -d "remote=${REMOTE}" -d "remote_url=${REMOTE_URL}" . ${EXAMPLE_DIR}
+
 example-setup:
-	cd example &&\
+	-cd ${EXAMPLE_DIR} &&\
+		rm -rf .copier-answers.yml &&\
 		git add . &&\
-		git commit -m "Initial commit" &&\
-		pyenv local project-template-example &&\
-		$(MAKE) install-dev &&\
+		git commit -m "automatic update" &&\
+		git fetch &&\
+		git branch --set-upstream-to=origin/main &&\
+		git pull --rebase=True -X theirs
+	$(MAKE) example-setup-local REMOTE=${REMOTE}
+example-setup-local:
+ifndef CI
+	cd ${EXAMPLE_DIR} &&\
+		pyenv local project-template-example || echo "Couldn't set example env via pyenv" &&\
+		pip install --upgrade pip &&\
+		$(MAKE) install-dev || echo "Couldn't install dev environment for example" &&\
 		code --new-window .
+endif
 
-.PHONY: example-push
-example-push:
-	cd example &&\
-		git push -f -u origin main
-
-.PHONY: example-clean
-example-clean:
-	rm -rf example && mkdir example
+examples-clean: example-clean-github example-clean-gitlab-fhg example-clean-gitlab-iis
+example-clean-github:
+	rm -rf build/example_github && mkdir -p build/example_github
+example-clean-gitlab-fhg:
+	rm -rf build/example_gitlab_fhg && mkdir -p build/example_gitlab_fhg
+example-clean-gitlab-iis:
+	rm -rf build/example_gitlab_iis && mkdir -p build/example_gitlab_iis
 
 .PHONY: test
+PYTEST_ARGS=-n auto
 test:
-	pytest -n 12
+	pytest ${PYTEST_ARGS} -m "not slow"
+test-all:
+	pytest ${PYTEST_ARGS}

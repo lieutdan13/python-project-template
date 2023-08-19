@@ -2,7 +2,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
-example
 !.vscode/settings.json
 !.vscode/extensions.json
 *.egg-info
