@@ -14,7 +14,7 @@ A customizable template for new Python projects to get you up and running with c
 
 Everything comes pre-configured with sensible defaults so you can focus on your implementation and let the template handle the rest.
 
-See this [sample project](https://git01.iis.fhg.de/mkj/sample-project) to see how projects generated from this template using default values look like.
+See this [sample project](https://github.com/jannismain/python-project-template-example) to see how projects generated from this template using default values look like.
 
 ## Getting Started
 
@@ -27,12 +27,12 @@ See this [sample project](https://git01.iis.fhg.de/mkj/sample-project) to see ho
 ### Usage
 
 ```console
-copier copy --trust https://git01.iis.fhg.de/mkj/project-template.git my_new_project
+copier copy --trust https://github.com/jannismain/python-project-template my_new_project
 ```
 
 *Note: `--trust` is required because the template uses [tasks][] to setup your git repository for you.*
 
-[tasks]: https://git01.iis.fhg.de/mkj/project-template/-/blob/main/copier.yaml
+[tasks]: https://github.com/jannismain/python-project-template/blob/main/copier.yaml
 
 ### Next Steps
 
