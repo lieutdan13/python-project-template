@@ -17,7 +17,7 @@ use_precommit:
 
 use_bumpversion:
   type: bool
-  default: true
+  default: false
   help: Use bumpversion to manage semantic version across multiple files?
 
 docs:
