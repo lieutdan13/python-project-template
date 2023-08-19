@@ -4,7 +4,7 @@ A customizable template for new Python projects to get you up and running with c
 
 ## Features
 
-* Each project has a [README][] and [CHANGELOG][] file and include further documentation based on [Material for MkDocs][] or [Sphinx][].
+* Each project has a [README][] and [CHANGELOG][] file and includes further documentation based on [Material for MkDocs][] or [Sphinx][].
 * [Testing][] and [continuous integration][ci] tooling are included from the very beginning
   * Test coverage is collected and displayed as a badge
   * Coverage report is integrated with [Gitlab's coverage report artifact][gitlab coverage report]
@@ -109,7 +109,7 @@ Learn more about [good documentation practices][documentation].
 
 * Do not name your project `test`. It will mess with [`pytest`'s automatic test discovery mechanism](https://docs.pytest.org/explanation/goodpractices.html#conventions-for-python-test-discovery).
 
-
+<!-- refs -->
 [pre-commit]: https://pre-commit.com/
 [semver]: https://semver.org/
 [mkdocs]: https://www.mkdocs.org/
@@ -122,6 +122,8 @@ Learn more about [good documentation practices][documentation].
 [mypy]: https://mypy.readthedocs.io/
 [pipx]: https://pypa.github.io/pipx/
 [sphinx]: https://www.sphinx-doc.org
+[automodule]: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html
+[furo]: https://github.com/pradyunsg/furo
 [myst]: https://myst-parser.readthedocs.io/
 
 [readme]: https://intern.iis.fhg.de/x/I5DPFQ
