@@ -122,7 +122,7 @@ def run(
     show_command=True,
     skip_cache=False,
     should_exit_with_error=False,
-    cwd=None,
+    cwd="",
 ):
     if setup is None:
         setup = []
@@ -130,13 +130,14 @@ def run(
     setup = [str(x) for x in setup]
     command = [str(x) for x in command]
 
-    filename = _get_filename(command, setup)
+
+    filename = _get_filename(command, setup, cwd)
     fp_cached_command = fp_cli_command_output_cache / filename
 
     if skip_cache or not fp_cached_command.is_file():
         log.info("Generating output for: %s", " ".join(setup) + " " + " ".join(command))
         kwargs = {}
-        if cwd is not None:
+        if cwd:
             cwd = root / pathlib.Path(cwd)
             kwargs["cwd"] = cwd
         result = subprocess.run(
@@ -168,7 +169,7 @@ def run(
     return output
 
 
-def _get_filename(args: list[str], setup: list[str] = None) -> str:
+def _get_filename(args: list[str], setup: list[str] = None, cwd: str = "") -> str:
     """Create filename with human-readable prefix and unique suffix for given args and setup.
 
     Filenames include ascii-characters only and strip other characters problematic for certain filesystems.
@@ -183,7 +184,7 @@ def _get_filename(args: list[str], setup: list[str] = None) -> str:
     Returns:
         filename of the format: {args}_{hash}
     """
-    sha_hash = hashlib.sha1(("".join([*setup, *args])).encode()).hexdigest()
+    sha_hash = hashlib.sha1(("".join([*setup, *args, cwd])).encode()).hexdigest()
     filename = f"{'_'.join(args)}_{sha_hash}"
     filename = unicodedata.normalize("NFKD", filename).encode("ascii", "ignore").decode("ascii")
     filename = re.sub(r"[^\w\s-]", "", filename)
