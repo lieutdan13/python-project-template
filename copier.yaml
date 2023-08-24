@@ -56,7 +56,7 @@ use_precommit:
   default: true
   help: Use pre-commit to run checks on each commit?
   explanation: |
-    [pre-commit](../../reference/tooling/pre-commit) is a tool that makes configuring [git hooks][git-hooks] a lot easier.
+    [pre-commit](../reference/tooling/pre-commit.md) is a tool that makes configuring [git hooks][git-hooks] a lot easier.
 
     This template uses pre-commit hooks to ensure, all changes match the expected formatting and style.
     Additionally, running linters at this stage can prevent committing something that contains obvious issues.
@@ -97,6 +97,7 @@ docs:
     Choose this if you want to publish your documentation in multiple formats (e.g. PDF, HTML, ePub, ...).
 
     If you are not sure which one to use, simply go with the default 😉.
+
 remote:
   choices:
     GitHub: github

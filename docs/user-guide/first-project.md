@@ -17,3 +17,11 @@ Let's look at them one by one and figure out, what you should choose or how to f
 {{ item.explanation }}
 {% endif %}
 {% endfor %}
+
+---
+
+Congrats 🎉 You just created your first project!
+
+Head over to [Next Steps][next-steps] to find out what you should do now.
+
+🤓 *Pro tip: Simply press ++"."++ to continue to the next page...*

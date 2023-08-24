@@ -1,7 +1,3 @@
----
-toc_depth: 4
----
-
 # Task Execution
 
 Recurring tasks, such as running the test suite, generating a coverage report or previewing the documentation locally should be easy to do for any developer.
@@ -33,7 +29,7 @@ The project template keeps development requirements as optional requirements of 
 The advantage of this is that development dependencies are handled exactly the same as other dependencies. A possible downside of this approach is that these optional dependencies are also included in the package built for users. If this is undesirable, an alternative approach would be to keep development requirements in a separate file (e.g. `dev-requirements.txt`) or use tooling that manages development requirements (e.g. [pipenv][]).
 
 [pipenv]: https://pipenv.pypa.io/
-[pyproject.toml]: ../{{URL_EXAMPLE_FILE}}/pyproject.toml
+[pyproject.toml]: {{URL_EXAMPLE_FILE}}/pyproject.toml
 
 ### Static Analysis
 

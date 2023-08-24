@@ -36,44 +36,9 @@ copier copy --trust https://git01.iis.fhg.de/mkj/project-template.git my_new_pro
 
 Should you need any help with the questions asked during project creation, head over to the [Your First Project](https://mkj.git01.iis.fhg.de/project-template/user-guide/first-project) section in the user guide.
 
-### Next Steps
+## Next Steps
 
-#### Enable CI
-
-On Gitlab remotes, CI Pipelines might need to be enabled by assigning a CI Runner to your project. Do this now so your CI pipeline doesn't get stuck after your first push.
-
-#### Push to Remote Repository
-
-During the project creation, you will be asked about the Gitlab remote url where your project will be pushed to. You can take that moment to create a new project in Gitlab and copy its link into the questionnaire. You can also change this value later by modifying the git remote associated with your project
-
-```sh
-git config remote.origin.url <url_to_project>
-```
-
-If your remote repository is created and configured, you can create an initial commit and push it to your remote
-
-```sh
-git add .
-git commit -m "initial commit"
-git push -u origin main
-```
-
-**Note**: Depending on which *default_branch* you configured, you might need to replace `main` with the name of your default branch.
-
-#### Install Project
-
-The new project is installable right away. Create a virtual environment using any method you like, for example using the builtin `venv` module:
-
-```sh
-python -m venv env
-source env/bin/activate
-```
-
-Now you can use `make install-dev`, to install your Python project in-place with all optional dev requirements.
-
-#### Start Implementing
-
-Now you are ready to start your implementation. As a quick reference, Python packages and modules go into `./src/`, documentation into `./docs/` and tests into `./tests/`.
+You answered all the questions and now what? Have a look at the [Next Steps](https://mkj.git01.iis.fhg.de/project-template/user-guide/first-project) to find out.
 
 ## Template Features
 

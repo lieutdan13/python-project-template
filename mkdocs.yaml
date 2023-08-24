@@ -25,6 +25,7 @@ theme: # https://squidfunk.github.io/mkdocs-material/setup/
     - navigation.prune
     - content.code.annotate
     - toc.follow
+    - navigation.footer
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -97,6 +98,8 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.keys
+  - def_list
 
 extra_javascript:
   # pymdownx.magiclink customization
