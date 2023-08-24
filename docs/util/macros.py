@@ -119,17 +119,21 @@ def run(
     *command,
     setup: list = None,
     skip_lines=0,
-    show_command=True,
+    show_command=False,
     skip_cache=False,
     should_exit_with_error=False,
     cwd="",
 ):
     if setup is None:
         setup = []
+
     # ensure arguments are all strings
     setup = [str(x) for x in setup]
     command = [str(x) for x in command]
 
+    if command[0].startswith("$ "):
+        command[0] = command[0].replace("$ ", "")
+        show_command = True
 
     filename = _get_filename(command, setup, cwd)
     fp_cached_command = fp_cli_command_output_cache / filename
