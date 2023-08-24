@@ -1,5 +1,5 @@
 PUBLISHED_EXAMPLES = build/examples/github build/examples/gitlab_fhg build/examples/gitlab_iis build/examples/gitlab_iis_sphinx
-DOC_EXAMPLES = docs/examples/mkdocs docs/examples/sphinx docs/examples/default
+DOC_EXAMPLES = docs/examples/mkdocs docs/examples/sphinx docs/examples/default docs/examples/minimal docs/examples/full
 COPIER_ARGS?=--trust
 COPIER_DEFAULT_VALUES=-d "project_name=Sample Project" -d "package_name=sample_project"
 
@@ -24,11 +24,18 @@ $(PUBLISHED_EXAMPLES):
 
 docs/examples/mkdocs: COPIER_DEFAULT_VALUES+=-d docs=mkdocs
 docs/examples/sphinx: COPIER_DEFAULT_VALUES+=-d docs=sphinx
+docs/examples/minimal: COPIER_DEFAULT_VALUES+=-d docs=none -d use_precommit=False -d use_bumpversion=False
+docs/examples/full: COPIER_DEFAULT_VALUES+=-d docs=mkdocs -d use_precommit=True -d use_bumpversion=True
 
 $(DOC_EXAMPLES):
 	@echo "Recreating '$@'..."
 	@rm -rf "$@" && mkdir -p "$@"
 	@copier copy ${COPIER_ARGS} --defaults -d user_name=mkj ${COPIER_DEFAULT_VALUES} . "$@"
+	@cd $@ &&\
+		python -m venv .venv || echo "Couldn't setup virtual environment" &&\
+		source .venv/bin/activate &&\
+		pip install --upgrade pip &&\
+		$(MAKE) install-dev || echo "Couldn't install dev environment for example"
 
 example-setup: example-setup-commit example-setup-local
 example-setup-commit:
@@ -42,7 +49,8 @@ example-setup-commit:
 example-setup-local:
 ifndef CI
 	cd ${EXAMPLE_DIR} &&\
-		pyenv local project-template-example || echo "Couldn't set example env via pyenv" &&\
+		python -m venv .venv || echo "Couldn't setup virtual environment" &&\
+		source .venv/bin/activate &&\
 		pip install --upgrade pip &&\
 		$(MAKE) install-dev || echo "Couldn't install dev environment for example" &&\
 		code --new-window .
@@ -51,7 +59,7 @@ endif
 examples-clean: ## remove all published examples
 	rm -rf $(PUBLISHED_EXAMPLES)
 
-example:  ## build individual example for manual testing (will prompt for values!)
+build/example:  ## build individual example for manual testing (will prompt for values!)
 	rm -rf "$@"
 	copier copy ${COPIER_ARGS} ${COPIER_DEFAULT_VALUES} . "$@"
 	$(MAKE) example-setup EXAMPLE_DIR="$@"
@@ -65,9 +73,9 @@ docs: $(DOC_EXAMPLES)
 	mkdocs $(MKDOCS_CMD) $(MKDOCS_ARGS)
 docs-live: ## serve documentation locally
 docs-live:
-	$(MAKE) docs MKDOCS_CMD=serve
+	$(MAKE) docs MKDOCS_CMD=serve MKDOCS_ARGS=--clean
 docs-clean:
-	rm -rf docs/examples public
+	rm -rf docs/examples public build/docs
 docs-clean-cache:
 	rm -rf build/.docs_cache
 
