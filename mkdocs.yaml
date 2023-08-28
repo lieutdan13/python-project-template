@@ -69,6 +69,8 @@ markdown_extensions:
   - pymdownx.snippets:
       check_paths: true
       url_download: true
+      auto_append:
+        - docs/util/abbreviations.md
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.superfences:
