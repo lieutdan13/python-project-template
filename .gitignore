@@ -1,8 +1,12 @@
-__pycache__/
+__pycache__
 *.py[cod]
 *$py.class
 .pytest_cache/
 !.vscode/settings.json
 !.vscode/extensions.json
+!.vscode/cspell.json
+!.vscode/terms.txt
 *.egg-info
 build
+.obsidian
+docs/examples
