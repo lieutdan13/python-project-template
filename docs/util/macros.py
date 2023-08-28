@@ -189,7 +189,8 @@ def _get_filename(args: list[str], setup: list[str] = None, cwd: str = "") -> st
         filename of the format: {args}_{hash}
     """
     sha_hash = hashlib.sha1(("".join([*setup, *args, cwd])).encode()).hexdigest()
-    filename = f"{'_'.join(args)}_{sha_hash}"
+    prog = pathlib.Path(args[0]).name
+    filename = f"{prog}_{'_'.join(args[1:])}_{sha_hash}"
     filename = unicodedata.normalize("NFKD", filename).encode("ascii", "ignore").decode("ascii")
     filename = re.sub(r"[^\w\s-]", "", filename)
     return filename
