@@ -1,7 +1,7 @@
 site_name: Project Template for Python
 
 repo_url: https://git01.iis.fhg.de/mkj/project-template
-repo_name: iis-project-template
+repo_name: project-template
 site_url: http://mkj.git01.iis.fhg.de/project-template
 edit_uri: -/edit/main/docs/
 site_dir: build/docs

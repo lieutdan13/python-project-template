@@ -1,9 +1,12 @@
 automodule
 bumpversion
+conftest
 cyclomatic
 docstrings
 endfor
 Furo
+gitfile
+gitlab
 includex
 jannismain
 jimustafa
@@ -12,6 +15,7 @@ magiclink
 mkdocs
 mkdocstrings
 myst
+noreport
 octicons
 pipenv
 pipx
