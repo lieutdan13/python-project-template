@@ -1,13 +1,13 @@
 PUBLISHED_EXAMPLES = build/examples/github build/examples/gitlab_fhg build/examples/gitlab_iis build/examples/gitlab_iis_sphinx
-DOC_EXAMPLES = docs/examples/mkdocs docs/examples/sphinx docs/examples/default docs/examples/minimal docs/examples/full
-COPIER_ARGS?=--trust
-COPIER_DEFAULT_VALUES=-d "project_name=Sample Project" -d "package_name=sample_project"
+DOC_EXAMPLES = docs/examples/mkdocs docs/examples/sphinx docs/examples/default docs/examples/minimal docs/examples/full docs/examples/gitlab
 
 .PHONY: examples $(PUBLISHED_EXAMPLES) example-setup example-setup-commit example-setup-local example examples-clean
 
 examples: ## build all published examples
 examples: $(PUBLISHED_EXAMPLES)
 
+COPIER_ARGS?=--trust
+COPIER_DEFAULT_VALUES=-d "project_name=Sample Project" -d "package_name=sample_project"
 build/examples/%: COPIER_DEFAULT_VALUES += --defaults
 build/examples/%: EXAMPLE_DIR:=$@
 build/examples/github: COPIER_DEFAULT_VALUES+=-d user_name=jannismain -d remote=github -d remote_url=git@github.com:jannismain/python-project-template-example.git
@@ -26,6 +26,7 @@ docs/examples/mkdocs: COPIER_DEFAULT_VALUES+=-d docs=mkdocs
 docs/examples/sphinx: COPIER_DEFAULT_VALUES+=-d docs=sphinx
 docs/examples/minimal: COPIER_DEFAULT_VALUES+=-d docs=none -d use_precommit=False -d use_bumpversion=False
 docs/examples/full: COPIER_DEFAULT_VALUES+=-d docs=mkdocs -d use_precommit=True -d use_bumpversion=True
+docs/examples/gitlab: COPIER_DEFAULT_VALUES+=-d remote=gitlab-iis
 
 $(DOC_EXAMPLES):
 	@echo "Recreating '$@'..."
