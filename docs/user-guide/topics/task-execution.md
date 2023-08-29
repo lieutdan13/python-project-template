@@ -48,7 +48,7 @@ A key aspect of maintainability is reducing accidental complexity[^1]. This mean
 One such tool to estimate complexity is [radon][], which can be used to calculate the average cyclomatic complexity (cc) for your project:
 
 ```console
-{{ run('make', 'maintainability', cwd='docs/examples/default') }}
+{{ run('make', 'maintainability', cwd='docs/examples/default', should_exit_with_error=True) }}
 ```
 
 [^1]: sometimes also called incidental complexity
