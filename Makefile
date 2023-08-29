@@ -34,7 +34,7 @@ $(DOC_EXAMPLES):
 	@copier copy ${COPIER_ARGS} --defaults -d user_name=mkj ${COPIER_DEFAULT_VALUES} . "$@"
 	@cd $@ &&\
 		python -m venv .venv || echo "Couldn't setup virtual environment" &&\
-		source .venv/bin/activate &&\
+		. .venv/bin/activate &&\
 		pip install --upgrade pip &&\
 		$(MAKE) install-dev || echo "Couldn't install dev environment for example"
 
