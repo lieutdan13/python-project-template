@@ -14,7 +14,7 @@ repos:
         entry: pytest -n auto -m "not slow"
         language: system
         pass_filenames: false
-        always_run: true
+        files: "^template/"
         stages: [push]
   - repo: https://github.com/streetsidesoftware/cspell-cli
     rev: v7.0.0
