@@ -10,7 +10,6 @@ image: python
 #       - example
 #   only:
 #     - main
-#     - 2-add-user-guide
 
 # publish_example:
 #   stage: build
@@ -21,7 +20,6 @@ image: python
 #     - make example-setup
 #   only:
 #     - main
-#     - 2-add-user-guide
 
 pages:
   script:
@@ -34,4 +32,3 @@ pages:
       - public
   only:
     - main
-    - 2-add-user-guide
