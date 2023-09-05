@@ -1,8 +1,8 @@
 site_name: Project Template for Python
 
-repo_url: https://git01.iis.fhg.de/mkj/project-template
-repo_name: project-template
-site_url: http://mkj.git01.iis.fhg.de/project-template
+repo_url: https://github.com/jannismain/python-project-template
+repo_name: python-project-template
+site_url: https://jannismain.github.io/python-project-template/
 edit_uri: -/edit/main/docs/
 site_dir: build/docs
 
@@ -118,7 +118,7 @@ extra:
   URL_EXAMPLE_FILE:
     !ENV [
       URL_EXAMPLE_FILE,
-      https://git01.iis.fhg.de/mkj/sample-project/-/raw/main,
+      https://github.com/jannismain/python-project-template-example/blob/main,
     ]
   tags:
     Documentation: doc

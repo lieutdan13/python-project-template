@@ -55,16 +55,16 @@ copier copy --trust gh:jannismain/python-project-template my_new_project
 
 The first part of the [user guide][] consists of tutorials on how to answer the template questions for [Your First Project][], what [Next Steps][] there are after your project is created and why the [Project Structure][] looks like it does.
 
-[user guide]: https://mkj.git01.iis.fhg.de/project-template/user-guide/
-[your first project]: https://mkj.git01.iis.fhg.de/project-template/user-guide/first-project
-[next steps]: https://mkj.git01.iis.fhg.de/project-template/user-guide/first-project
-[project structure]: https://mkj.git01.iis.fhg.de/project-template/user-guide/project-structure
+[user guide]: https://jannismain.github.io/python-project-template/user-guide/getting-started/
+[your first project]: https://jannismain.github.io/python-project-template/user-guide/first-project
+[next steps]: https://jannismain.github.io/python-project-template/user-guide/first-project
+[project structure]: https://jannismain.github.io/python-project-template/user-guide/project-structure
 
 The second part of the user guide explains how best practices, like [testing][], [documentation][], and [continuous integration][], are implemented in this template.
 
-[testing]: https://mkj.git01.iis.fhg.de/project-template/user-guide/topics/testing
-[documentation]: https://mkj.git01.iis.fhg.de/project-template/user-guide/topics/documentation
-[continuous integration]: https://mkj.git01.iis.fhg.de/project-template/user-guide/topics/ci
+[testing]: https://jannismain.github.io/python-project-template/user-guide/topics/testing
+[documentation]: https://jannismain.github.io/python-project-template/user-guide/topics/documentation
+[continuous integration]: https://jannismain.github.io/python-project-template/user-guide/topics/ci
 
 ## Known Issues
 
