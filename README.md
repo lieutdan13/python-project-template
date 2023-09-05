@@ -42,7 +42,7 @@ See this [sample project][] to see how projects generated from this template usi
 ### Usage
 
 ```console
-copier copy --trust https://github.com/jannismain/python-project-template my_new_project
+copier copy --trust gh:jannismain/python-project-template my_new_project
 ```
 
 *Note: `--trust` is required because the template uses [tasks][] to setup your git repository for you.*
