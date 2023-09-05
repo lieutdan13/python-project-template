@@ -5,13 +5,19 @@ A customizable template for new Python projects to get you up and running with c
 ## Features
 
 - Each project has a [README][] and [CHANGELOG][] file and includes further documentation based on [Material for MkDocs][] or [Sphinx][].
-- [Testing][] and [continuous integration][ci] tooling are included from the very beginning
+- [Testing][kb_testing] and [continuous integration][ci] tooling are included from the very beginning
     - Test coverage is collected and displayed as a badge
     - Coverage report is integrated with [Gitlab's coverage report artifact][gitlab coverage report]
 - Projects use [pre-commit][] for sanity checks on each commit or push
 - Projects use bumpversion to increase their version according to [semantic versioning guidelines][semver]
 - Python projects are installable by default and provide a simple command-line interface
 
+[readme]: https://intern.iis.fhg.de/x/I5DPFQ
+[changelog]: https://intern.iis.fhg.de/display/DOCS/Changelog
+[material for mkdocs]: https://squidfunk.github.io/mkdocs-material
+[sphinx]: https://www.sphinx-doc.org
+[ci]: https://intern.iis.fhg.de/x/DK6qG
+[kb_testing]: https://intern.iis.fhg.de/x/DS9SFw
 [gitlab coverage report]: https://docs.gitlab.com/ee/ci/yaml/artifacts_reports.html#artifactsreportscoverage_report
 [pre-commit]: https://pre-commit.com/
 [semver]: https://semver.org/
