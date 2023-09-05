@@ -1,0 +1,37 @@
+image: python
+
+variables:
+  GIT_DEPTH: 0
+
+# build_example:
+#   stage: build
+#   script:
+#     - pip install copier
+#     - copier copy --trust -d "project_name=Sample Project" --defaults . ./example
+#   artifacts:
+#     paths:
+#       - example
+#   only:
+#     - main
+
+# publish_example:
+#   stage: build
+#   script:
+#     - cd example
+#     - git init
+#     - git remote add origin git@git01.iis.fhg.de:mkj/sample-project.git
+#     - make example-setup
+#   only:
+#     - main
+
+pages:
+  script:
+    - apt-get update && apt-get install tree
+    - pip install -r requirements.txt
+    - make docs
+    - mv build/docs public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
