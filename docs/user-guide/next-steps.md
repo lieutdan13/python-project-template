@@ -2,7 +2,15 @@
 
 ## Enable CI
 
-On GitLab remotes, CI Pipelines might need to be enabled by assigning a CI Runner to your project. Do this now so your CI pipeline doesn't get stuck when you push your repository for the first time.
+=== "GitLab"
+
+    On GitLab remotes, CI Pipelines might need to be enabled by assigning a CI Runner to your project. Do this now so your CI pipeline doesn't get stuck when you push your repository for the first time.
+
+=== "GitHub"
+
+    On GitHub remotes, pages need to be configured for your project to be published from a GitHub Action under `Settings/Pages`:
+
+    ![](https://cln.sh/SFzK7Hzh+)
 
 ## First commit and push
 
