@@ -1,4 +1,5 @@
 automodule
+BUILDDIR
 bumpversion
 conftest
 cyclomatic
@@ -19,12 +20,14 @@ noreport
 octicons
 pipenv
 pipx
+posargs
 precommit
 pymdownx
 pypa
 pyproject
 pytest
 sampleproject
+sendline
 setuptools
 SPHINXBUILD
 typer

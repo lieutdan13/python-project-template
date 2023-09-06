@@ -1,26 +1,32 @@
 [build-system]
 requires = ["setuptools>=61", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "python-project-template"
-description = ""
+name = "init-python-project"
+description = "A python project generator based on copier."
 readme = "README.md"
 requires-python = ">=3.11"
-authors = [{ name = "Jannis Mainczyk", email = "jmainczyk@github.com" }]
-maintainers = [{ name = "Jannis Mainczyk", email = "jmainczyk@github.com" }]
+authors = [{ name = "Jannis Mainczyk", email = "jmainczyk@gmail.com" }]
+maintainers = [{ name = "Jannis Mainczyk", email = "jmainczyk@gmail.com" }]
 dependencies = ["copier", "typer[all]"]
 dynamic = ["version"]
-
-[tool.setuptools]
-py-modules = ["init_python_project"]
 
 [tool.setuptools_scm]
 fallback_version = "0.0.1"
 
+[tool.setuptools.package-data]
+"*" = ["**/*.jinja", "**/*.md", "**/*.txt", "**/*.yaml", "**/*.yml", "**/*.toml", "*.cfg", "context", ".*", "**/.*"]
+"init_python_project.template" = [".*", "**/.*"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["**/__pycache__"]
+"init_python_project.template" = ["**/__pycache__"]
+
 
 [project.optional-dependencies]
 dev = ["black", "pre-commit", "ruff"]
-test = ["pytest", "pytest-venv", "pytest-xdist"]
+test = ["pytest", "pytest-venv", "pytest-xdist", "pexpect"]
 doc = [
     "mkdocs-material",
     "mkdocs-git-revision-date-localized-plugin",
@@ -33,7 +39,7 @@ doc = [
 ]
 
 [project.scripts] # optional
-init-python-project = "init_python_project:app"
+init-python-project = "init_python_project.cli:app"
 
 [tool.pytest.ini_options]
 minversion = "6.0"

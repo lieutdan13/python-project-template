@@ -24,6 +24,25 @@ variables:
 #   only:
 #     - main
 
+before_script:
+  # symlinks must be replaced with actual files in CI
+  - rm -r src/init_python_project/template src/init_python_project/copier.yaml
+  - cp -r template src/init_python_project/.
+  - cp copier.yaml src/init_python_project/.
+  # creating example projects using copier requires a git identity
+  - git config --global user.name "ci-runner"
+  - git config --global user.email "ci-runner@git01.iis.fhg.de"
+
+build:
+  stage: build
+  script:
+    - make build
+  artifacts:
+    paths:
+      - build/
+  only:
+    - main
+
 pages:
   script:
     - apt-get update && apt-get install tree

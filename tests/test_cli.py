@@ -1,15 +1,13 @@
 import logging as log
 
 import pytest
+from init_python_project.cli import app
 from typer.testing import CliRunner
-
-from init_python_project import app
 
 
 @pytest.fixture
 def cli():
     runner = CliRunner()
-
     return lambda *args: runner.invoke(app, args)
 
 

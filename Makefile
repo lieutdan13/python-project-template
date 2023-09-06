@@ -106,6 +106,19 @@ test-all: ## run all tests
 	pytest ${PYTEST_ARGS}
 
 
+.PHONY: build install-build
+PKGNAME=init_python_project
+PKGDIR=src/${PKGNAME}
+BUILDDIR?=build/dist
+PYTHON?=python
+build: ## build package
+	@${PYTHON} -m pip install --upgrade build
+	@${PYTHON} -m build --outdir ${BUILDDIR} .
+
+install-build: build
+	@pip uninstall -y ${PKGNAME}
+	pip install --force-reinstall ${BUILDDIR}/*.whl
+
 .PHONY: help
 # a nice way to document Makefiles, found here: https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
