@@ -1,15 +1,22 @@
+[build-system]
+requires = ["setuptools>=61", "setuptools_scm[toml]>=6.2"]
+
 [project]
 name = "python-project-template"
-version = "0.0.1"
 description = ""
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Jannis Mainczyk", email = "jmainczyk@github.com" }]
 maintainers = [{ name = "Jannis Mainczyk", email = "jmainczyk@github.com" }]
 dependencies = ["copier", "typer[all]"]
+dynamic = ["version"]
 
 [tool.setuptools]
 py-modules = ["init_python_project"]
+
+[tool.setuptools_scm]
+fallback_version = "0.0.1"
+
 
 [project.optional-dependencies]
 dev = ["black", "pre-commit", "ruff"]
