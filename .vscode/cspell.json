@@ -9,8 +9,7 @@
     ".pre-commit-config.yaml",
     "mkdocs.yaml",
     "template",
-    "pyproject.toml",
-    "requirements.txt"
+    "pyproject.toml"
   ],
   "dictionaryDefinitions": [
     {

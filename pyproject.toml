@@ -1,3 +1,30 @@
+[project]
+name = "python-project-template"
+version = "0.0.1"
+description = ""
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Jannis Mainczyk", email = "jmainczyk@github.com" }]
+maintainers = [{ name = "Jannis Mainczyk", email = "jmainczyk@github.com" }]
+dependencies = ["copier"]
+
+[tool.setuptools]
+py-modules = ["init_python_project"]
+
+[project.optional-dependencies]
+dev = ["black", "pre-commit", "ruff"]
+test = ["pytest", "pytest-venv", "pytest-xdist"]
+doc = [
+    "mkdocs-material",
+    "mkdocs-git-revision-date-localized-plugin",
+    "mkdocs-literate-nav",
+    "mkdocs-macros-plugin",
+    "mkdocs-macros-includex",
+    "mkdocs-exclude",
+    "mkdocs-autorefs",
+    "pyyaml",
+]
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q"
