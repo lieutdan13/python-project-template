@@ -55,7 +55,7 @@ pages:
   script:
     - mv build/docs public
   needs:
-    - build_pages
+    - docs
   artifacts:
     paths:
       - public
