@@ -3,7 +3,7 @@
 ## Tooling
 
 - [pytest][]: testing framework
-- [coverage.py][]: collect [test coverage][test-coverage] and create report
+- [coverage.py][]: collect test coverage and create report
 
 ## Configuration
 

@@ -1,6 +1,16 @@
 # Documentation
 
+Documentation is anything about your project that is not executed or used by your application or development environment.
+
+While code is written for both humans and machines, documentation is purely written for other humans.
+
 Each project starts with a [README][] and [CHANGELOG][] file. Additional documentation written in Markdown can be included using one of the following documentation tools:
+
+{% for name, value in read_yaml("copier.yaml").docs.choices.items() %}
+{% if value != 'none' %}
+- [{{name}}][{{name}}]
+{% endif %}
+{% endfor %}
 
 [readme]: https://intern.iis.fhg.de/x/I5DPFQ
 [changelog]: https://intern.iis.fhg.de/x/7jCzFQ
