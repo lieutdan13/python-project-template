@@ -60,7 +60,7 @@ plugins:
   - autorefs
   - tags:
       enabled: !ENV [CI, true]
-      tags_file: reference/tags.md
+      tags_file: reference/tooling/index.md
 
 markdown_extensions:
   - abbr
