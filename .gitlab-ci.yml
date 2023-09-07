@@ -33,22 +33,29 @@ before_script:
   - git config --global user.name "ci-runner"
   - git config --global user.email "ci-runner@git01.iis.fhg.de"
 
-build:
+dist:
   stage: build
   script:
     - make build
   artifacts:
     paths:
       - build/
-  only:
-    - main
 
-pages:
+docs:
+  stage: build
   script:
     - apt-get update && apt-get install tree
     - pip install .[doc]
     - make docs
+  artifacts:
+    paths:
+      - build/docs
+
+pages:
+  script:
     - mv build/docs public
+  needs:
+    - build_pages
   artifacts:
     paths:
       - public
