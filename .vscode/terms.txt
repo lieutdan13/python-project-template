@@ -9,6 +9,8 @@ endfor
 Furo
 gitfile
 gitlab
+gitmoji
+glab
 includex
 jannismain
 jimustafa
