@@ -13,4 +13,7 @@ module
 package
 :   A directory that is marked as a Python package by containing a `__init__.py` file. An exception to this are [namespace packages][], which don't require such an indicator.
 
+reStructuredText
+:   Markup language used by [Sphinx][]. A more common alternative is [Markdown][].
+
 [namespace packages]: https://packaging.python.org/en/latest/guides/packaging-namespace-packages/

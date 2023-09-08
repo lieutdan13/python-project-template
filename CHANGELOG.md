@@ -15,11 +15,11 @@ An example project (comparable to [pypa/sampleproject]) can be found at [jannism
 
 - CHANGELOG proposal from [jimustafa](https://github.com/jimustafa) in [!185](https://github.com/pypa/sampleproject/pull/185)
 - added `__main__` and `cli` modules (based on discussion of [!67](https://github.com/pypa/sampleproject/pull/67))
-- Tooling
+- Refactored into copier template
     - add option to use `bumpversion`
     - add option to use `pre-commit`
-    - add option to choose between MkDocs and Sphinx documentation
-    - `remote` option ('github' (default), 'gitlab-fhg', 'gitlab-iis')
+    - add option to choose between documentation tools: `MkDocs` or `Sphinx`
+    - add `remote` option ('github' (default), 'gitlab-fhg', 'gitlab-iis')
         - if `gitlab-*` is selected, Gitlab CI configuration is added
         - if `github` is selected, GitHub actions are added
     - add Gitlab CI configuration to
@@ -30,8 +30,9 @@ An example project (comparable to [pypa/sampleproject]) can be found at [jannism
         - generate documentation and publish via [Gitlab Pages](https://docs.gitlab.com/ee/user/project/pages/)
     - add Github Actions configuration to
         - generate documentation and publish via [Github Pages](https://pages.github.com/)
-    - default branch option (default: main)
+    - add default branch option (default: `main`)
 - Documentation
+    - add user, reference and developer guides
 - `init_python_project` Package
     - contains template + `init-python-project` command line interface
 
@@ -46,7 +47,7 @@ An example project (comparable to [pypa/sampleproject]) can be found at [jannism
 
 <!-- [unreleased]: https://github.com/jannismain/python-project-template/compare/v0.0.2...HEAD -->
 <!-- [0.0.2]: https://github.com/jannismain/python-project-template/compare/v0.0.1...v0.0.2 -->
-<!-- [0.0.1]: https://github.com/jannismain/python-project-template/releases/tag/v0.0.1 -->
+[0.0.1]: https://github.com/jannismain/python-project-template/releases/tag/v0.0.1
 
 [pypa/sampleproject]: https://github.com/pypa/sampleproject
 [jannismain/python-project-template-example]: https://github.com/jannismain/python-project-template-example

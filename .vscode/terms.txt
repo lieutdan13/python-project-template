@@ -4,6 +4,7 @@ bumpversion
 conftest
 cyclomatic
 docstrings
+Docutils
 endfor
 Furo
 gitfile
