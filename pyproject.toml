@@ -13,10 +13,21 @@ dependencies = ["copier", "typer[all]"]
 dynamic = ["version"]
 
 [tool.setuptools_scm]
-fallback_version = "0.0.1"
+fallback_version = "0.0.0"
 
 [tool.setuptools.package-data]
-"*" = ["**/*.jinja", "**/*.md", "**/*.txt", "**/*.yaml", "**/*.yml", "**/*.toml", "*.cfg", "context", ".*", "**/.*"]
+"*" = [
+    "**/*.jinja",
+    "**/*.md",
+    "**/*.txt",
+    "**/*.yaml",
+    "**/*.yml",
+    "**/*.toml",
+    "*.cfg",
+    "context",
+    ".*",
+    "**/.*",
+]
 "init_python_project.template" = [".*", "**/.*"]
 
 [tool.setuptools.exclude-package-data]
