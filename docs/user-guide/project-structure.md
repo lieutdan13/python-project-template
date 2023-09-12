@@ -11,7 +11,7 @@ Depending on which options you selected, your project initially consists of the 
 === "default"
 
     ```
-    {{ run("tree", "-a", "-I", ".git", "-I", "*.egg-info", "-I", ".venv", "docs/examples/default/") | indent(4) }}
+    {{ run("tree", "-a", "-I", ".git", "-I", "*.egg-info", "-I", ".venv", "-I", "__pycache__", "docs/examples/default/") | indent(4) }}
     ```
 
 === "full"

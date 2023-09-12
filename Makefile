@@ -1,3 +1,7 @@
+.PHONY: install
+install: ## install all dependencies & development requirements
+	@pip install -e .[dev,test,doc]
+
 PUBLISHED_EXAMPLES = build/examples/github build/examples/gitlab_fhg build/examples/gitlab_iis build/examples/gitlab_iis_sphinx
 DOC_EXAMPLES = docs/examples/mkdocs docs/examples/sphinx docs/examples/default docs/examples/minimal docs/examples/full docs/examples/gitlab
 
@@ -100,6 +104,19 @@ test: ## run tests quickly
 	pytest ${PYTEST_ARGS} -m "not slow"
 test-all: ## run all tests
 	pytest ${PYTEST_ARGS}
+
+
+.PHONY: build install-build
+PKGNAME=init_python_project
+PKGDIR=src/${PKGNAME}
+BUILDDIR?=build/dist
+PYTHON?=python
+build: ## build package
+	@${PYTHON} -m pip install --upgrade build
+	@${PYTHON} -m build --outdir ${BUILDDIR} .
+install-build: build
+	@pip uninstall -y ${PKGNAME}
+	pip install --force-reinstall ${BUILDDIR}/*.whl
 
 
 .PHONY: help

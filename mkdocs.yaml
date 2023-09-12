@@ -60,7 +60,7 @@ plugins:
   - autorefs
   - tags:
       enabled: !ENV [CI, true]
-      tags_file: reference/tags.md
+      tags_file: reference/tooling/index.md
 
 markdown_extensions:
   - abbr
@@ -102,6 +102,7 @@ markdown_extensions:
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.keys
   - def_list
+  - pymdownx.critic
 
 extra_javascript:
   # pymdownx.magiclink customization

@@ -7,7 +7,5 @@
     - user-guide/*
     - Topics
         - user-guide/topics/*
-    - [FAQ](user-guide/faq.md)
-- [Best Practices](./best-practice/)
 - [Reference](./reference/)
 - [Template Developer Guide](./developer-guide/)

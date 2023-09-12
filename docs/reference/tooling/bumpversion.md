@@ -1,5 +1,5 @@
 ---
-tags: [Release]
+tags: [Versioning]
 ---
 
 # bumpversion

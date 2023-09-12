@@ -21,7 +21,7 @@ MkDocs is configured in the `mkdocs.yml` file in the root of your project.
 
     {{ includex("docs/examples/mkdocs/mkdocs.yml", indent=4, lang="yaml") }}
 
-## Recommended Extensions
+## Extensions
 
 ### `mkdocstrings`
 
@@ -33,19 +33,19 @@ MkDocs is configured in the `mkdocs.yml` file in the root of your project.
 
 Use [Jinja][] template expressions in your markdown documentation.
 
-[jinja]: https://jinja.palletsprojects.com/templates/
-
 ### `mkdocs-macros-includex`
 
 [:octicons-mark-github-16: Repository][includex-github] :octicons-dash-24: [:octicons-book-16: Documentation][includex-docs]
 
 Include content from any file in your repository for documentation purposes.
 
+[material for mkdocs]: https://squidfunk.github.io/mkdocs-material/
+[mkdocs]: https://www.mkdocs.org/
+[jinja]: https://jinja.palletsprojects.com/templates/
 [includex-github]: https://github.com/jannismain/mkdocs-macros-includex
 [includex-docs]: https://jannismain.github.io/mkdocs-macros-includex
 [mkdocs-macros-includex]: https://pypi.org/project/mkdocs-macros-includex/
 [mkdocs-macros-github]: https://github.com/fralau/mkdocs_macros_plugin
 [mkdocs-macros-docs]: https://mkdocs-macros-plugin.readthedocs.io/
+[mkdocstrings]: https://github.com/mkdocstrings/mkdocstrings
 [mkdocstrings-docs]: https://mkdocstrings.github.io/
-
-{{ includex("README.md", start_match="<!-- refs -->") }}

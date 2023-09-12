@@ -1,7 +1,3 @@
----
-tags: [Tutorial]
----
-
 # Creating your first project
 
 If you followed the steps outlined in [Getting Started][getting-started], you are now presented with a couple of questions about your new project:
