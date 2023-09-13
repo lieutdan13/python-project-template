@@ -17,7 +17,7 @@ Both pytest and coverage.py support configuration via the `pyproject.toml` file.
 Python tests are implemented using [pytest][] in the `tests` subdirectory.
 
 ```
-{{ run("tree", "--noreport", "docs/examples/default/tests") }}
+{{ run("tree --noreport docs/examples/default/tests") }}
 ```
 
 Each test module starts with `test_` so it is automatically discovered when running `pytest`.
@@ -32,7 +32,7 @@ Tests can be executed like this
 
 ```console
 $ pytest -q
-{{ run(".venv/bin/pytest", "--config-file", "pyproject.toml", "-q", cwd="docs/examples/default") }}
+{{ run(".venv/bin/pytest --config-file pyproject.toml -q", cwd="docs/examples/default") }}
 ```
 
 If you have never used pytest before, check out their [pytest documentation](https://docs.pytest.org/en/7.4.x/contents.html). The more you know about pytest, the better your test suite is going to be. 😉
@@ -53,11 +53,6 @@ Most Python IDE's integrate with test suites written for pytest and allow you to
 
 ![](https://cln.sh/Krfmprql+)
 *VSCode automatically loads your test suite in the "Testing" sidebar and makes it easy to (1) run or debug all your tests or (2) run or debug individual tests. It understands parametrized tests and breaks them out as separate test cases.*{.caption}
-
-<figure markdown>
-  ![VSCode automatically loads your test suite in the "Testing" sidebar and makes it easy to (1) run or debug all your tests or (2) run or debug individual tests. It understands parametrized tests and breaks them out as separate test cases.](https://cln.sh/Krfmprql+)
-  <figcaption>VSCode automatically loads your test suite in the "Testing" sidebar and makes it easy to (1) run or debug all your tests or (2) run or debug individual tests. It understands parametrized tests and breaks them out as separate test cases.</figcaption>
-</figure>
 
 [pytest]: https://pytest.org/
 [coverage.py]: https://coverage.readthedocs.io/

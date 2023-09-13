@@ -13,12 +13,12 @@ This project template relies on [GNU make][make intro] as a task runner. While i
 An overview of the included Makefile targets and what they do can be obtained using `make help`:
 
 ```console
-{{ run('make', 'help', cwd='docs/examples/default') | replace('[36m', '') | replace('[0m', '')}}
+{{ run('make help', cwd='docs/examples/default') | replace('[36m', '') | replace('[0m', '')}}
 ```
 
 ### Installation
 
-{{ includex('docs/examples/default/Makefile', start_match='install-dev:', end_match='.PHONY', lang="Makefile") }}
+{{ includex('docs/examples/default/Makefile', start_match='install-dev:', end_match='.PHONY', code=True) }}
 
 The project is being installed in place (using pip's `-e` option) including all optional requirements (given in square brackets).
 
@@ -48,7 +48,7 @@ A key aspect of maintainability is reducing accidental complexity[^1]. This mean
 One such tool to estimate complexity is [radon][], which can be used to calculate the average cyclomatic complexity (cc) for your project:
 
 ```console
-{{ run('make', 'maintainability', cwd='docs/examples/default', should_exit_with_error=True) }}
+{{ run('make maintainability', cwd='docs/examples/default', should_exit_with_error=True) }}
 ```
 
 [^1]: sometimes also called incidental complexity
