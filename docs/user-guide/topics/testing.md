@@ -43,7 +43,7 @@ If a remote has been configured, your tests are also automatically run as part o
 
 ??? quote "Run tests in GitLab CI"
 
-    {{ includex('docs/examples/gitlab/.gitlab-ci.yml', lang='yaml', start_match='test:\n', end_match='pages:') | indent(4) }}
+    {{ includex('docs/examples/gitlab/.gitlab-ci.yml', code=True, start_match='test:\n', end_match='pages:') | indent(4) }}
 
 A coverage report is created and linked in the README file.
 
