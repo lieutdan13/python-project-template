@@ -7,7 +7,8 @@ import pytest
 @pytest.fixture
 def bin():
     import os
-    yield Path(os.environ["BIN_PATH"])
+
+    yield Path(os.getenv("BIN_PATH", "."))
 
 
 def test_template_generation_via_cli(bin: Path, tmp_path: Path):
