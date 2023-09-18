@@ -113,7 +113,7 @@ BUILDDIR?=build/dist
 PYTHON?=python
 TEMPLATE_SRC?=./template
 TEMPLATE_DEST?=${PKGDIR}/template
-build: copy-template ## build package
+build: build-clean copy-template ## build package
 	@${PYTHON} -m pip install --upgrade build
 	@${PYTHON} -m build --outdir ${BUILDDIR} .
 install-build: build

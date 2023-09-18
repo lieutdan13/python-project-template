@@ -30,10 +30,6 @@ fallback_version = "0.0.0"
 ]
 "init_python_project.template" = [".*", "**/.*"]
 
-[tool.setuptools.exclude-package-data]
-"*" = ["**/__pycache__"]
-"init_python_project.template" = ["**/__pycache__"]
-
 
 [project.optional-dependencies]
 dev = ["black", "pre-commit", "ruff"]
