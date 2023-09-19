@@ -21,7 +21,12 @@ test:
     - pip install radon==5.1.0
     - make maintainability
     # generate a badge for the maintainability index with the total average of cyclomatic complexity as value
-    - python -m anybadge --label=Maintainability --value="$(python -m radon cc --total-average -nc src | tail -n 1 | cut -d' ' -f 3) ($(python -m radon cc --total-average -nc src | tail -n 1 | cut -d' ' -f 4 | cut -c 2-4))" -f build/badges/maintainability -o
+    - |
+      score=$(python -m radon cc --total-average src | tail -n 1 | cut -d' ' -f 3-4)
+      [[ "$score" = A* ]] && color="green";  [[ "$score" = B* ]] && color="green"
+      [[ "$score" = C* ]] && color="yellow"; [[ "$score" = D* ]] && color="orange_2"
+      [[ "$score" = E* ]] && color="orange"; [[ "$score" = F* ]] && color="orangered"
+      python -m anybadge --label=Maintainability --value="$score" --color="$color" -f build/badges/maintainability -o
   coverage: '/TOTAL.+?(\d+\%)/'
   artifacts:
     when: always
