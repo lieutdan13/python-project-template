@@ -54,6 +54,7 @@ def test_template_generation(
         ),
         defaults=True,
         unsafe=True,
+        vcs_ref="HEAD",
     )
 
     fp_readme = tmp_path / "README.md"
@@ -133,6 +134,7 @@ def test_default_branch_option(tmp_path: Path):
         unsafe=True,
         defaults=True,
         user_defaults={"default_branch": default_branch},
+        vcs_ref="HEAD",
     )
     assert (
         check_output(["git", "status", "--branch", "--porcelain"], cwd=str(tmp_path))
@@ -158,6 +160,7 @@ def test_remote_option(tmp_path: Path, remote: str):
         ),
         unsafe=True,
         defaults=True,
+        vcs_ref="HEAD",
     )
 
     git_remote_output = check_output(["git", "remote", "-v"], cwd=str(tmp_path)).decode()
@@ -192,6 +195,7 @@ def test_docs_option(venv: VirtualEnvironment, tmp_path: Path, docs: str):
         ),
         defaults=True,
         unsafe=True,
+        vcs_ref="HEAD",
     )
 
     if docs == "mkdocs":
@@ -225,7 +229,7 @@ def test_docs_option(venv: VirtualEnvironment, tmp_path: Path, docs: str):
 
 @pytest.mark.parametrize("docs", SUPPORTED_DOCS)
 @pytest.mark.parametrize("remote", SUPPORTED_REMOTES)
-def test_publish_docs_ci(venv: VirtualEnvironment, tmp_path: Path, docs: str, remote: str):
+def test_publish_docs_ci(tmp_path: Path, docs: str, remote: str):
     root = tmp_path
 
     run_copy(
@@ -238,19 +242,26 @@ def test_publish_docs_ci(venv: VirtualEnvironment, tmp_path: Path, docs: str, re
         ),
         defaults=True,
         unsafe=True,
+        vcs_ref="HEAD",
     )
 
     ci_platform = "gitlab" if remote.startswith("gitlab") else remote
 
     if ci_platform == "gitlab":
-        gitlab_ci_config = yaml.safe_load((root / ".gitlab-ci.yml").read_text())
+        ci_file = root / ".gitlab-ci.yml"
+        docs_job = "pages"
+    elif ci_platform == "github":
+        ci_file = root / ".github" / "workflows" / "ci.yaml"
+        docs_job = "docs"
+
+    assert ci_file.is_file()
+    ci_config = yaml.safe_load(ci_file.read_text())
+
+    if ci_platform == "github":
+        ci_config = ci_config["jobs"]
 
     match (docs, ci_platform):
-        case ("none", "github"):
-            assert not (root / ".github" / "ci.yaml").is_file()
-        case ("none", "gitlab"):
-            assert "pages" not in gitlab_ci_config
-        case (_, "github"):
-            assert (root / ".github" / "ci.yaml").is_file()
-        case (_, "gitlab"):
-            assert "pages" in gitlab_ci_config
+        case ("none", _):
+            assert docs_job not in ci_config, "docs job should not be present if docs are disabled"
+        case _:
+            assert docs_job in ci_config, "docs job should be present if docs are enabled"
