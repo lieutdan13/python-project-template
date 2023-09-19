@@ -247,6 +247,10 @@ def test_publish_docs_ci(venv: VirtualEnvironment, tmp_path: Path, docs: str, re
 
     match (docs, ci_platform):
         case ("none", "github"):
-            assert not (root / ".github" / "docs.yaml").is_file()
+            assert not (root / ".github" / "ci.yaml").is_file()
         case ("none", "gitlab"):
             assert "pages" not in gitlab_ci_config
+        case (_, "github"):
+            assert (root / ".github" / "ci.yaml").is_file()
+        case (_, "gitlab"):
+            assert "pages" in gitlab_ci_config
