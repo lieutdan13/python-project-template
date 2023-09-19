@@ -15,11 +15,18 @@
 
 {% if remote == 'github' %}
 {% set domain_pages = 'github.io' %}
+{% set path_pipeline = '/actions?query=branch%3A' + default_branch %}
 {% elif remote == 'gitlab-iis' %}
 {% set domain_pages = domain %}
 {% elif remote == 'gitlab-fhg' %}
 {% set domain_pages = 'pages.fraunhofer.de' %}
 {% endif %}
+
+{% if remote.startswith('gitlab') %}
+{% set path_pipeline = '/-/pipelines' %}
+{% endif %}
+
 {% set remote_url_pages = "https://" + group + "." + domain_pages + "/" + pages_path %}
+{% set remote_url_pipeline = remote_url_https + path_pipeline %}
 
 {% set cli_command = package_name | replace("_", "-") %}
