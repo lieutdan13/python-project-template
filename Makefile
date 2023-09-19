@@ -106,7 +106,7 @@ test-all: ## run all tests
 	pytest ${PYTEST_ARGS}
 
 
-.PHONY: build install-build
+.PHONY: build install-build copy-template build-clean
 PKGNAME=init_python_project
 PKGDIR=src/${PKGNAME}
 BUILDDIR?=build/dist
@@ -124,6 +124,21 @@ copy-template:
 	@cp copier.yaml ${PKGDIR}/.
 build-clean: ## remove build artifacts
 	rm -rf ${BUILDDIR} ${PKGDIR}/template ${PKGDIR}/copier.yaml
+
+.PHONY: release release-test release-tag release-pypi release-github
+release: release-test release-tag build release-pypi release-github
+release-test:
+	@nox
+release-tag:
+	@git tag -m 'bump version to '`init-python-project --version` `init-python-project --version` --sign
+release-pypi:
+	twine upload ${BUILDDIR}/*
+release-github:
+	@git push --tags
+	gh release create `init-python-project --version` \
+		--title `init-python-project --version` \
+		--notes '*[see changes](https://github.com/jannismain/python-project-template/blob/main/CHANGELOG.md#'`init-python-project --version | tr -d .`'---'`date -Idate`')*'
+	gh release upload `init-python-project --version` ${BUILDDIR}/*.tar.gz ${BUILDDIR}/*.whl
 
 
 .PHONY: help
