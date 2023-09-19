@@ -111,12 +111,19 @@ PKGNAME=init_python_project
 PKGDIR=src/${PKGNAME}
 BUILDDIR?=build/dist
 PYTHON?=python
-build: ## build package
+TEMPLATE_SRC?=./template
+TEMPLATE_DEST?=${PKGDIR}/template
+build: build-clean copy-template ## build package
 	@${PYTHON} -m pip install --upgrade build
 	@${PYTHON} -m build --outdir ${BUILDDIR} .
 install-build: build
 	@pip uninstall -y ${PKGNAME}
 	pip install --force-reinstall ${BUILDDIR}/*.whl
+copy-template:
+	@cp -r ${TEMPLATE_SRC} ${TEMPLATE_DEST}
+	@cp copier.yaml ${PKGDIR}/.
+build-clean: ## remove build artifacts
+	rm -rf ${BUILDDIR} ${PKGDIR}/template ${PKGDIR}/copier.yaml
 
 
 .PHONY: help

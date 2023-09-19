@@ -24,7 +24,6 @@ jobs:
       - uses: actions/configure-pages@v3
       - run: sudo apt-get update && sudo apt-get install tree
       - run: | # replace symlinks with actual files
-          rm -r src/init_python_project/template src/init_python_project/copier.yaml
           cp -r template src/init_python_project/.
           cp copier.yaml src/init_python_project/.
       - run: | # creating example projects using copier requires a git identity
