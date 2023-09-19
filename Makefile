@@ -10,7 +10,7 @@ DOC_EXAMPLES = docs/examples/mkdocs docs/examples/sphinx docs/examples/default d
 examples: ## build all published examples
 examples: $(PUBLISHED_EXAMPLES)
 
-COPIER_ARGS?=--trust
+COPIER_ARGS?=--trust --vcs-ref=HEAD
 COPIER_DEFAULT_VALUES=-d "project_name=Sample Project" -d "package_name=sample_project"
 build/examples/%: COPIER_DEFAULT_VALUES += --defaults
 build/examples/%: EXAMPLE_DIR:=$@
