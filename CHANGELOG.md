@@ -7,13 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
-## [0.0.2]
+## [0.0.2] - 2023-09-19
 
 ### Added
 
--   `init-python-project --version` outputs template version
+- `init-python-project --version` outputs template version
 
-## [0.0.1]
+## [0.0.1] - 2023-09-18
 
 Started this template by forking [pypa/sampleproject] and converting it to a copier template.
 
