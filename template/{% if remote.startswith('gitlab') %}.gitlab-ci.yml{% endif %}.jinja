@@ -1,8 +1,6 @@
 image: python:latest
-stages: [test, publish]
 
 test:
-  stage: test
   cache: # reuse venv in subsequent jobs
     key: $CI_JOB_NAME
     paths:
@@ -37,23 +35,24 @@ test:
       - build/coverage
       - build/badges
       - env/
-{% if docs != 'none' %}
-pages:
-  stage: publish
-  needs:
-    - test
-  only:
-    - {{default_branch}}
-    - staging
+
+{% if docs != 'none' -%}
+docs:
   script:
-    - mkdir -p public
     - source env/bin/activate
     - pip install .[doc]
     - DOCS_TARGET=public make docs
     - mv public/html/* public/. && rm -r public/html
+
+{% endif -%}
+pages:
+  needs: [test{% if docs != 'none' %}, docs{% endif %}]
+  only:
+    - {{default_branch}}
+    - staging
+  script:
     - mv build/badges public/.
     - mv build/coverage public/.
   artifacts:
     paths:
       - public
-{% endif -%}
