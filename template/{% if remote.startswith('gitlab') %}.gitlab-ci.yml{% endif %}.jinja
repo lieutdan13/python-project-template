@@ -36,21 +36,30 @@ test:
       - build/badges
       - env/
 
-{% if docs != 'none' -%}
+{% if docs == 'sphinx' -%}
+include: docs/.gitlab/docs.yml
+
+{% elif docs == 'mkdocs' %}
 docs:
   script:
-    - source env/bin/activate
-    - pip install .[doc]
-    - DOCS_TARGET=public make docs
-    - mv public/html/* public/. && rm -r public/html
+    mkdocs build --clean --site-dir build/docs
+  artifacts:
+    paths:
+      - build/docs
 
 {% endif -%}
+
 pages:
   needs: [test{% if docs != 'none' %}, docs{% endif %}]
   only:
     - {{default_branch}}
     - staging
   script:
+    {% if docs != 'none' -%}
+    - mv build/docs public
+    {% else -%}
+    - mkdir public
+    {% endif -%}
     - mv build/badges public/.
     - mv build/coverage public/.
   artifacts:

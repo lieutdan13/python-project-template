@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - github ci now runs tests, collects coverage and creates maintainability and coverage badges
+- add [sphinx_template](https://git01.iis.fhg.de/sch/sphinx_template/) as an option when choosing sphinx for documentation
 
 ### Changed
 

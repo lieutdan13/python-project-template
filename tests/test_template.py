@@ -1,6 +1,7 @@
+import itertools
 import os
 from pathlib import Path
-from subprocess import check_output
+from subprocess import check_output, run
 
 import pytest
 import yaml
@@ -10,6 +11,13 @@ from pytest_venv import VirtualEnvironment
 template = yaml.safe_load(Path(__file__).parent.with_name("copier.yaml").read_text())
 SUPPORTED_REMOTES = template["remote"]["choices"].values()
 SUPPORTED_DOCS = template["docs"]["choices"].values()
+SUPPORTED_DOCS_TEMPLATES = template["docs_template"]["choices"].values()
+SUPPORTED_DOCS_TEMPLATES_COMBINATIONS = [
+    t
+    for t in itertools.product(SUPPORTED_DOCS, SUPPORTED_DOCS_TEMPLATES)
+    if t[1] == "none" or t[1].startswith(t[0])
+]
+"""All combinations of docs and docs_template options."""
 
 fp_template = Path(__file__).parent.parent
 
@@ -26,12 +34,16 @@ def venv(tmp_path):
     venv.create()
     (venv.path / ".gitignore").unlink()
     yield venv
+    print(tmp_path)  # useful for debugging the built project
 
 
 @pytest.mark.slow
 @pytest.mark.parametrize("use_precommit", [True, False], ids=["pre-commit", "no pre-commit"])
 @pytest.mark.parametrize("use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"])
-@pytest.mark.parametrize("docs", SUPPORTED_DOCS)
+@pytest.mark.parametrize(
+    "docs,docs_template",
+    SUPPORTED_DOCS_TEMPLATES_COMBINATIONS,
+)
 @pytest.mark.parametrize("remote", SUPPORTED_REMOTES)
 def test_template_generation(
     venv: VirtualEnvironment,
@@ -39,6 +51,7 @@ def test_template_generation(
     use_precommit: bool,
     use_bumpversion: bool,
     docs: str,
+    docs_template: str,
     remote: str,
     project_name: str = "Sample Project",
 ):
@@ -50,6 +63,7 @@ def test_template_generation(
             use_precommit=use_precommit,
             use_bumpversion=use_bumpversion,
             docs=docs,
+            docs_template=docs_template,
             remote=remote,
         ),
         defaults=True,
@@ -82,8 +96,12 @@ def test_template_generation(
         fp_mkdocs_cfg = tmp_path / "mkdocs.yml"
         assert fp_mkdocs_cfg.is_file(), "mkdocs configuration file should exist"
     elif docs == "sphinx":
-        fp_sphinx_cfg = fp_docs / "conf.py"
-        assert fp_sphinx_cfg.is_file(), "sphinx configuration file should exist"
+        fp_sphinx_makefile = fp_docs / "Makefile"
+        assert fp_sphinx_makefile.is_file(), "sphinx Makefile file should exist"
+        fp_sphinx_requirements = fp_docs / "requirements.txt"
+        assert fp_sphinx_requirements.is_file(), "sphinx requirements file should exist"
+        fp_sphinx_ci_job = fp_docs / ".gitlab" / "docs.yml"
+        assert fp_sphinx_ci_job.is_file(), "sphinx ci job should exist"
 
     use_docs = docs != "none"
     assert fp_docs.is_dir() == use_docs, "docs directory should exist if configured"
@@ -95,31 +113,20 @@ def test_template_generation(
     ), "new projects should have a remote repository configured"
 
     os.chdir(tmp_path)
+    if docs_template != "none":
+        # docs template needs to be formatted before we can assume
+        # that all pre-commit hooks pass
+        check_output(["git", "add", "."])
+        run(["pre-commit", "run", "--all-files"])
     check_output(["git", "add", "."])
     check_output(["git", "commit", "-m", "initial commit"])
 
     # verify that example can be installed
-    venv.install(".[doc,dev,test]", editable=True)
+    venv.install(".[dev,test]", editable=True)
     venv_bin = Path(venv.bin)
 
     # verify that pytest works and all tests pass
     check_output([venv_bin / "pytest", "-q"])
-
-    # verify docs can be built
-    if use_docs:
-        fp_docs_built = tmp_path / "build" / "docs" / "html"
-        assert not fp_docs_built.is_dir()
-        check_output(
-            ["make", "docs"],
-            env={
-                "SPHINXBUILD": str(venv_bin / "sphinx-build"),
-                "MKDOCS_BIN": str(venv_bin / "mkdocs"),
-            },
-        )
-        assert fp_docs_built.is_dir(), "docs should have been built into build directory"
-        assert (fp_docs_built / "index.html").is_file(), "index should exist"
-
-    # TODO: Test template update
 
 
 def test_default_branch_option(tmp_path: Path):
@@ -202,14 +209,23 @@ def test_docs_option(venv: VirtualEnvironment, tmp_path: Path, docs: str):
         fp_mkdocs_cfg = root / "mkdocs.yml"
         assert fp_mkdocs_cfg.is_file(), "mkdocs configuration file should exist"
     elif docs == "sphinx":
-        fp_sphinx_cfg = root / "docs" / "conf.py"
-        assert fp_sphinx_cfg.is_file(), "sphinx configuration file should exist"
+        fp_sphinx_makefile = root / "docs" / "Makefile"
+        assert fp_sphinx_makefile.is_file(), "sphinx Makefile should exist"
+        fp_sphinx_requirements = root / "docs" / "requirements.txt"
+        assert fp_sphinx_requirements.is_file(), "sphinx requirements file should exist"
+        fp_sphinx_ci_job = root / "docs" / ".gitlab" / "docs.yml"
+        assert fp_sphinx_ci_job.is_file(), "sphinx ci job should exist"
 
     if docs != "none":
         assert (root / "docs").is_dir(), "docs directory should exist"
+        fp_requirements = root / "docs" / "requirements.txt"
+        assert fp_requirements.is_file(), "doc requirements file should exist"
 
         # install example including its doc requirements
-        venv.install(f"{root}[doc]", editable=True)
+        venv.install(f"{root}", editable=True)
+        for req in fp_requirements.open().readlines():
+            if not req.strip().startswith("#"):
+                venv.install(req)
         venv_bin = Path(venv.bin)
 
         # verify docs can be built
@@ -246,13 +262,15 @@ def test_publish_docs_ci(tmp_path: Path, docs: str, remote: str):
     )
 
     ci_platform = "gitlab" if remote.startswith("gitlab") else remote
+    docs_job = "docs"
 
     if ci_platform == "gitlab":
         ci_file = root / ".gitlab-ci.yml"
-        docs_job = "pages"
+        if docs == "sphinx":
+            # job for sphinx is included via separate file due to external template support
+            ci_file = root / "docs" / ".gitlab" / "docs.yml"
     elif ci_platform == "github":
         ci_file = root / ".github" / "workflows" / "ci.yaml"
-        docs_job = "docs"
 
     assert ci_file.is_file()
     ci_config = yaml.safe_load(ci_file.read_text())
@@ -265,3 +283,33 @@ def test_publish_docs_ci(tmp_path: Path, docs: str, remote: str):
             assert docs_job not in ci_config, "docs job should not be present if docs are disabled"
         case _:
             assert docs_job in ci_config, "docs job should be present if docs are enabled"
+
+
+DOCS_WITH_TEMPLATE = [c for c in SUPPORTED_DOCS_TEMPLATES_COMBINATIONS if c[1] != "none"]
+"""Only those combinations that actually use a template."""
+
+
+@pytest.mark.parametrize("docs,docs_template", DOCS_WITH_TEMPLATE)
+def test_docs_with_template(tmp_path: Path, docs: str, docs_template: str):
+    root = tmp_path
+
+    run_copy(
+        str(fp_template),
+        str(root),
+        data=dict(
+            **required_static_data,
+            docs=docs,
+            docs_template=docs_template,
+        ),
+        defaults=True,
+        unsafe=True,
+        vcs_ref="HEAD",
+    )
+
+    docs = root / "docs"
+
+    docs_requirements = docs / "requirements.txt"
+    assert docs_requirements.is_file(), "all doc templates must come with a requirements file"
+
+    ci_job = docs / ".gitlab" / "docs.yml"
+    assert ci_job.is_file(), "doc templates must provide their ci job in separate file"
