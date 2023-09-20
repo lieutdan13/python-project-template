@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+- github ci now runs tests, collects coverage and creates maintainability and coverage badges
+
 ### Changed
 
 - template now uses a static documentation badge provided by shields.io

@@ -23,6 +23,9 @@ jobs:
       - name: Run tests and collect coverage
         run: |
           make coverage
+      - run: coverage xml
+      - run: pip install genbadge[coverage]
+      - run: genbadge coverage -i coverage.xml -o build/coverage/coverage.svg
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -84,6 +87,7 @@ jobs:
           path: public
       - run: ls -lR public
       - run: mv public/maintainability public/badges
+      - run: mv public/coverage/coverage.svg public/badges/.
       - run: mv public/docs/* public/. && rm -r public/docs || echo "no documentation found!"
       - name: Upload Pages
         uses: actions/upload-pages-artifact@v2
