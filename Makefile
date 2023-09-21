@@ -10,7 +10,7 @@ DOC_EXAMPLES = docs/examples/mkdocs docs/examples/sphinx docs/examples/default d
 examples: ## build all published examples
 examples: $(PUBLISHED_EXAMPLES)
 
-COPIER_ARGS?=--trust
+COPIER_ARGS?=--trust --vcs-ref=HEAD
 COPIER_DEFAULT_VALUES=-d "project_name=Sample Project" -d "package_name=sample_project"
 build/examples/%: COPIER_DEFAULT_VALUES += --defaults
 build/examples/%: EXAMPLE_DIR:=$@
@@ -99,10 +99,12 @@ spellcheck-dump: ## save all flagged words to project terms dictionary
 
 
 .PHONY: test
-PYTEST_ARGS=-n auto
-test: ## run tests quickly
+PYTEST_ARGS?=
+test: ## run some tests
+test: build-clean copy-template
 	pytest ${PYTEST_ARGS} -m "not slow"
 test-all: ## run all tests
+test-all: build-clean copy-template
 	pytest ${PYTEST_ARGS}
 
 
@@ -123,7 +125,7 @@ copy-template:
 	@cp -r ${TEMPLATE_SRC} ${TEMPLATE_DEST}
 	@cp copier.yaml ${PKGDIR}/.
 build-clean: ## remove build artifacts
-	rm -rf ${BUILDDIR} ${PKGDIR}/template ${PKGDIR}/copier.yaml
+	@rm -rf ${BUILDDIR} ${PKGDIR}/template ${PKGDIR}/copier.yaml
 
 .PHONY: release release-test release-tag release-pypi release-github
 release: release-test release-tag build release-pypi release-github

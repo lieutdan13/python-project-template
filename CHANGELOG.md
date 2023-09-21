@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+- github ci now runs tests, collects coverage and creates maintainability and coverage badges
+- add [sphinx_template](https://git01.iis.fhg.de/sch/sphinx_template/) as an option when choosing sphinx for documentation
+
+### Changed
+
+- template now uses a static documentation badge provided by shields.io
+
+### Fixed
+
+- link to pipeline in README now correctly links to github actions
+- when bumpversion is selected, add `bump2version` to dev dependencies
+
 ## [0.0.2] - 2023-09-19
 
 ### Added

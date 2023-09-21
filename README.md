@@ -1,7 +1,7 @@
 <div align=center>
 <h1>Python Project Template</h1>
 
-[![](https://img.shields.io/badge/python-3.11-blue)][sample project]
+[![](https://img.shields.io/badge/Documentation-main-blue)][docs]
 [![](https://img.shields.io/badge/Example-Sample_Project-blue)][sample project]
 [![PyPI - Version](https://img.shields.io/pypi/v/init-python-project)][pypi]
 
@@ -63,6 +63,7 @@ init-python-project <name of project>
 
 The first part of the user guide consists of tutorials on how to answer the template questions for [Your First Project][], what [Next Steps][] there are after your project is created and why the [Project Structure][] looks like it does.
 
+[docs]: https://jannismain.github.io/python-project-template/
 [your first project]: https://jannismain.github.io/python-project-template/user-guide/first-project
 [next steps]: https://jannismain.github.io/python-project-template/user-guide/first-project
 [project structure]: https://jannismain.github.io/python-project-template/user-guide/project-structure
