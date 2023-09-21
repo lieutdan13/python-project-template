@@ -53,6 +53,7 @@ minversion = "6.0"
 addopts = "-ra -q -n auto --exitfirst"
 testpaths = ["tests"]
 markers = ["slow"]
+filterwarnings = ["ignore::copier.vcs.DirtyLocalWarning"]
 
 [tool.black]
 line-length = 100
