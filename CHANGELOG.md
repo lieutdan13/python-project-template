@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+## [0.0.3] - 2023-09-21
+
 ### Added
 
 - github ci now runs tests, collects coverage and creates maintainability and coverage badges
@@ -67,7 +69,8 @@ An example project (comparable to [pypa/sampleproject]) can be found at [jannism
 
 - trove classifiers (only relevant when publishing to PyPI)
 
-[unreleased]: https://github.com/jannismain/python-project-template/compare/v0.0.2...HEAD
+[unreleased]: https://github.com/jannismain/python-project-template/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/jannismain/python-project-template/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/jannismain/python-project-template/compare/0.0.1...0.0.2
 [0.0.1]: https://github.com/jannismain/python-project-template/releases/tag/0.0.1
 [pypa/sampleproject]: https://github.com/pypa/sampleproject
