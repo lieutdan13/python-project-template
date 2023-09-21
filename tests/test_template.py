@@ -1,7 +1,8 @@
 import itertools
 import os
+import tomllib
 from pathlib import Path
-from subprocess import check_output, run
+from subprocess import check_call, check_output, run
 
 import pytest
 import yaml
@@ -39,7 +40,6 @@ def venv(tmp_path):
 
 @pytest.mark.slow
 @pytest.mark.parametrize("use_precommit", [True, False], ids=["pre-commit", "no pre-commit"])
-@pytest.mark.parametrize("use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"])
 @pytest.mark.parametrize(
     "docs,docs_template",
     SUPPORTED_DOCS_TEMPLATES_COMBINATIONS,
@@ -49,7 +49,6 @@ def test_template_generation(
     venv: VirtualEnvironment,
     tmp_path: Path,
     use_precommit: bool,
-    use_bumpversion: bool,
     docs: str,
     docs_template: str,
     remote: str,
@@ -61,7 +60,6 @@ def test_template_generation(
         data=dict(
             **required_static_data,
             use_precommit=use_precommit,
-            use_bumpversion=use_bumpversion,
             docs=docs,
             docs_template=docs_template,
             remote=remote,
@@ -84,9 +82,6 @@ def test_template_generation(
 
     fp_precommit_config = tmp_path / ".pre-commit-config.yaml"
     assert fp_precommit_config.is_file() == use_precommit
-
-    fp_bumpversion_config = tmp_path / ".bumpversion.cfg"
-    assert fp_bumpversion_config.is_file() == use_bumpversion
 
     fp_git = tmp_path / ".git"
     assert fp_git.is_dir(), "new projects should be git repositories"
@@ -313,3 +308,57 @@ def test_docs_with_template(tmp_path: Path, docs: str, docs_template: str):
 
     ci_job = docs / ".gitlab" / "docs.yml"
     assert ci_job.is_file(), "doc templates must provide their ci job in separate file"
+
+
+def read_pyproject_version(path: Path):
+    return tomllib.load(path.open("rb"))["project"]["version"]
+
+
+def read_last_commit_msg(cwd: Path | str = None):
+    return check_output(["git", "log", "-1", "--pretty=%B"], cwd=str(cwd or ".")).decode().strip()
+
+
+@pytest.mark.parametrize("use_bumpversion", [True, False], ids=["bumpversion", "no bumpversion"])
+def test_bumpversion_option(venv: VirtualEnvironment, tmp_path: Path, use_bumpversion: bool):
+    run_copy(
+        str(fp_template),
+        str(tmp_path),
+        data=dict(
+            **required_static_data,
+            use_bumpversion=use_bumpversion,
+            use_precommit=False,  # makes testing easier
+        ),
+        unsafe=True,
+        defaults=True,
+        vcs_ref="HEAD",
+    )
+    if not use_bumpversion:
+        assert not (tmp_path / ".bumpversion.cfg").is_file()
+        return
+
+    assert (tmp_path / ".bumpversion.cfg").is_file()
+    fp_pyproject = tmp_path / "pyproject.toml"
+
+    os.chdir(tmp_path)
+    check_output(["git", "add", "."])
+    check_output(["git", "commit", "-m", "initial commit"])
+
+    venv.install(".[dev]", editable=True)
+    venv_bin = Path(venv.bin)
+
+    # verify that pytest works and all tests pass
+    check_output([venv_bin / "bumpversion", "-h"])
+
+    # bumpversion git interaction requires initial commit
+    run(["git", "add", "."])
+    run(["git", "commit", "-m", "initial commit", "--no-verify"])
+    assert read_pyproject_version(fp_pyproject) == "0.0.1"
+    check_call([venv_bin / "bumpversion", "patch"])
+    assert read_pyproject_version(fp_pyproject) == "0.0.2"
+    assert read_last_commit_msg() == "bump v0.0.1 -> v0.0.2"
+    check_call([venv_bin / "bumpversion", "minor"])
+    assert read_pyproject_version(fp_pyproject) == "0.1.0"
+    assert read_last_commit_msg() == "bump v0.0.2 -> v0.1.0"
+    check_output([venv_bin / "bumpversion", "major"])
+    assert read_pyproject_version(fp_pyproject) == "1.0.0"
+    assert read_last_commit_msg() == "bump v0.1.0 -> v1.0.0"
