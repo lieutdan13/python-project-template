@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "init-python-project"
-description = "A python project generator based on copier."
+description = "A python project generator."
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Jannis Mainczyk", email = "jmainczyk@gmail.com" }]
