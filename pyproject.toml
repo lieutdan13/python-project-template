@@ -50,7 +50,7 @@ init-python-project = "init_python_project.cli:app"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = "-ra -q"
+addopts = "-ra -q -n auto --exitfirst"
 testpaths = ["tests"]
 markers = ["slow"]
 

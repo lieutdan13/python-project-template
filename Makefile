@@ -99,7 +99,7 @@ spellcheck-dump: ## save all flagged words to project terms dictionary
 
 
 .PHONY: test
-PYTEST_ARGS=-n auto --exitfirst
+PYTEST_ARGS?=
 test: ## run tests quickly
 	pytest ${PYTEST_ARGS} -m "not slow"
 test-all: ## run all tests
