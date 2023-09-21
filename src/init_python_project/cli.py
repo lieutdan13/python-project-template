@@ -7,7 +7,7 @@ from typer import Argument, Option, Typer, colors, confirm, style
 
 app = Typer()
 
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 
 def version_callback(value: bool) -> None:
