@@ -1,6 +1,12 @@
 {{ includex('README.md', start_match='Prerequisites', end_match='<!-- usage-end -->')}}
 
+*Note: If you have [pipx][] installed (you should, it is good), you can simply use `pipx run init-python-project` out of the box.*
+
+[pipx]: https://pypa.github.io/pipx/
+
 ## Using [copier] directly
+
+The underlying template is built using [copier]. This means you can also use the copier template directly like this:
 
 ```console
 copier copy --trust https://git01.iis.fhg.de/mkj/project-template.git my_new_project
@@ -10,7 +16,4 @@ copier copy --trust https://git01.iis.fhg.de/mkj/project-template.git my_new_pro
 
 [tasks]: https://git01.iis.fhg.de/mkj/project-template/-/blob/main/copier.yaml
 
-*Note: If you have [pipx][] installed (you should, it is good), you can simply use `pipx run copier` out of the box.*
-
 [copier]: https://github.com/copier-org/copier
-[pipx]: https://pypa.github.io/pipx/
