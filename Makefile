@@ -28,8 +28,8 @@ $(PUBLISHED_EXAMPLES):
 
 docs/examples/mkdocs: COPIER_DEFAULT_VALUES+=-d docs=mkdocs
 docs/examples/sphinx: COPIER_DEFAULT_VALUES+=-d docs=sphinx
-docs/examples/minimal: COPIER_DEFAULT_VALUES+=-d docs=none -d use_precommit=False -d use_bumpversion=False
-docs/examples/full: COPIER_DEFAULT_VALUES+=-d docs=mkdocs -d use_precommit=True -d use_bumpversion=True
+docs/examples/minimal: COPIER_DEFAULT_VALUES+=-d docs=none -d precommit=False -d bumpversion=False
+docs/examples/full: COPIER_DEFAULT_VALUES+=-d docs=mkdocs -d precommit=True -d bumpversion=True
 docs/examples/gitlab: COPIER_DEFAULT_VALUES+=-d remote=gitlab-iis
 
 $(DOC_EXAMPLES):
