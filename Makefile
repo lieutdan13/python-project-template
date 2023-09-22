@@ -26,16 +26,18 @@ $(PUBLISHED_EXAMPLES):
 	@copier copy ${COPIER_ARGS} ${COPIER_DEFAULT_VALUES} . "$@"
 	$(MAKE) example-setup EXAMPLE_DIR="$@"
 
-docs/examples/mkdocs: COPIER_DEFAULT_VALUES+=-d docs=mkdocs
-docs/examples/sphinx: COPIER_DEFAULT_VALUES+=-d docs=sphinx
-docs/examples/minimal: COPIER_DEFAULT_VALUES+=-d docs=none -d precommit=False -d bumpversion=False
-docs/examples/full: COPIER_DEFAULT_VALUES+=-d docs=mkdocs -d precommit=True -d bumpversion=True
-docs/examples/gitlab: COPIER_DEFAULT_VALUES+=-d remote=gitlab-iis
-
+INIT_PYTHON_PROJECT_ARGS=--project-name="Sample Project"
+docs/examples/mkdocs: INIT_PYTHON_PROJECT_ARGS+=--docs mkdocs
+docs/examples/sphinx: INIT_PYTHON_PROJECT_ARGS+=--docs sphinx
+docs/examples/minimal: INIT_PYTHON_PROJECT_ARGS+=--docs none --no-precommit --no-bumpversion
+docs/examples/full: INIT_PYTHON_PROJECT_ARGS+=--docs mkdocs --precommit --bumpversion
+docs/examples/gitlab: INIT_PYTHON_PROJECT_ARGS+=--docs mkdocs --precommit --bumpversion --remote gitlab-iis
+doc-examples: $(DOC_EXAMPLES)
 $(DOC_EXAMPLES):
+	$(MAKE) uncopy-template copy-template
 	@echo "Recreating '$@'..."
 	@rm -rf "$@" && mkdir -p "$@"
-	@copier copy ${COPIER_ARGS} --defaults -d user_name=mkj ${COPIER_DEFAULT_VALUES} . "$@"
+	init-python-project "$@" --user-name mkj ${INIT_PYTHON_PROJECT_ARGS} --defaults --yes --verbose
 	@cd $@ &&\
 		python -m venv .venv || echo "Couldn't setup virtual environment" &&\
 		. .venv/bin/activate &&\
@@ -124,8 +126,10 @@ install-build: build
 copy-template:
 	@cp -r ${TEMPLATE_SRC} ${TEMPLATE_DEST}
 	@cp copier.yaml ${PKGDIR}/.
-build-clean: ## remove build artifacts
-	@rm -rf ${BUILDDIR} ${PKGDIR}/template ${PKGDIR}/copier.yaml
+uncopy-template:
+	@rm -rf ${TEMPLATE_DEST} ${PKGDIR}/copier.yaml
+build-clean: uncopy-template ## remove build artifacts
+	@rm -rf ${BUILDDIR}
 
 
 .PHONY: help
