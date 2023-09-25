@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [unreleased]
 
+### Added
+
+- automatically assign `asprunner` tag in GitLab CI configuration intended for `gitlab-fhg` remote.
+
 ## [0.0.5] - 2023-09-25
 
 ### Fixed

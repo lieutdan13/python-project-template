@@ -1,4 +1,7 @@
-image: python:latest
+default:
+  image: python:latest
+  {% if remote=='gitlab-fhg' -%}
+  tags: [asprunner]{% endif %}
 
 test:
   cache: # reuse venv in subsequent jobs
