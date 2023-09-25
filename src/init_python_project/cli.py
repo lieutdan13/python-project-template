@@ -58,6 +58,7 @@ def CustomOptional(_type=bool, help="", custom_flag: str | list = None, **kwargs
 
 @app.command(name="init-python-project")
 def cli(
+    # data passed to the underlying copier template
     target_path: Path = Argument("new-project"),
     project_name: CustomOptional(str, "project name (title case with spaces)") = None,
     package_name: CustomOptional(str, "Python package name (lowercase with underscores)") = None,
@@ -68,6 +69,7 @@ def cli(
     remote_url: CustomOptional(str, "ssh url where your repository will be hosted on") = None,
     precommit: CustomOptional(bool, "include pre-commit hooks") = None,
     bumpversion: CustomOptional(bool, "include bumpversion configuration") = None,
+    # arguments that affect project creation
     defaults: Annotated[
         bool, Option("--defaults", "-d", help="automatically accept all default options")
     ] = False,
@@ -102,8 +104,8 @@ def cli(
     https://copier.readthedocs.io/en/stable/reference/main/#copier.main.Worker.
 
     Note that `src_path`, `dest_path`, `vcs_ref`, `data`, `defaults`, `user_defaults` and `unsafe`
-    are already set by this command. Further, `pretend` is set to `True` if `--dry-run` is passed
-    and `overwrite` is set to `True` if `--yes` is passed.
+    are already set by this command. Further, `--dry-run` corresponds to copier's `--pretend` and
+    `--yes` implies copier's `--overwrite`.
     """
 
     if docs_template not in [None, "none"] and (
