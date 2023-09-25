@@ -1,6 +1,5 @@
 default:
-  image: python:latest
-  {% if remote=='gitlab-fhg' -%}
+  image: python:latest{% if remote=='gitlab-fhg' %}
   tags: [asprunner]{% endif %}
 
 test:
