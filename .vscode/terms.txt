@@ -6,6 +6,7 @@ cyclomatic
 docstrings
 Docutils
 endfor
+fraunhofer
 Furo
 gitfile
 gitlab
