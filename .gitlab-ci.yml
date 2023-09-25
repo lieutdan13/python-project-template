@@ -44,7 +44,7 @@ docs:
     - dist
   script:
     - apt-get update && apt-get install tree
-    - pip install build/dist/*.whl
+    - pip install `ls build/dist/*.whl`[doc]
     - make docs
   artifacts:
     paths:
