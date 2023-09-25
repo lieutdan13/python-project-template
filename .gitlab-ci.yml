@@ -40,9 +40,11 @@ dist:
 
 docs:
   stage: build
+  needs:
+    - dist
   script:
     - apt-get update && apt-get install tree
-    - pip install .[doc]
+    - pip install build/dist/*.whl
     - make docs
   artifacts:
     paths:
