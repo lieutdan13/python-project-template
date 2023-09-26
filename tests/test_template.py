@@ -170,7 +170,7 @@ def test_remote_option(tmp_path: Path, remote: str):
 
     readme_template_url = (tmp_path / "README.md").open().readlines()[-1].strip()
 
-    if remote == "gitlab":
+    if remote == "github":
         assert remote_url == f"git@github.com:{user_name}/wonderful-project.git"
         assert (tmp_path / ".github").is_dir()
         assert "github.com" in readme_template_url
