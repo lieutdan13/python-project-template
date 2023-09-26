@@ -1,4 +1,5 @@
-image: python
+default:
+  image: python
 
 variables:
   GIT_DEPTH: 0
