@@ -1,4 +1,6 @@
 asprunner
+autoapi
+autodoc
 automodule
 BUILDDIR
 bumpversion
