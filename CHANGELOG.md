@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - pre-commit hook that lints `.gitlab-ci.yml` and prevents committing a faulty config
     - available for projects with gitlab remote using mkdocs
 
+### Fixed
+
+- Gitlab projects using mkdocs didn't install doc requirements during CI
+
 ## [0.0.5] - 2023-09-25
 
 ### Fixed

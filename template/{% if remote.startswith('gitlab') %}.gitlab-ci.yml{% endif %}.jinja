@@ -42,10 +42,11 @@ test:
 {% if docs == 'sphinx' -%}
 include: docs/.gitlab/docs.yml
 
-{% elif docs == 'mkdocs' %}
+{% elif docs == 'mkdocs' -%}
 docs:
   script:
-    mkdocs build --clean --site-dir build/docs
+    - pip install -r docs/requirements.txt
+    - mkdocs build --clean --site-dir build/docs
   artifacts:
     paths:
       - build/docs
