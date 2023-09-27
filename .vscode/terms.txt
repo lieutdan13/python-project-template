@@ -11,6 +11,7 @@ fraunhofer
 Furo
 gitfile
 gitlab
+gitlabci
 gitmoji
 glab
 includex

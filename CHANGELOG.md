@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - automatically assign `asprunner` tag in GitLab CI configuration intended for `gitlab-fhg` remote.
 - GitLab CI artifacts are set to expire after 1 week to reduce overall storage usage (most recent artifact is kept)
 - pre-commit hook that lints `.gitlab-ci.yml` and prevents committing a faulty config
+    - available for projects with gitlab remote using mkdocs
 
 ## [0.0.5] - 2023-09-25
 
