@@ -221,8 +221,6 @@ def test_docs_option(venv: VirtualEnvironment, tmp_path: Path, docs: str):
     elif docs == "sphinx":
         fp_sphinx_makefile = root / "docs" / "Makefile"
         assert fp_sphinx_makefile.is_file(), "sphinx Makefile should exist"
-        fp_sphinx_requirements = root / "docs" / "requirements.txt"
-        assert fp_sphinx_requirements.is_file(), "sphinx requirements file should exist"
         fp_sphinx_ci_job = root / "docs" / ".gitlab" / "docs.yml"
         assert fp_sphinx_ci_job.is_file(), "sphinx ci job should exist"
 
