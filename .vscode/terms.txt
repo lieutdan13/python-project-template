@@ -17,10 +17,12 @@ gitlabci
 gitmoji
 glab
 includex
+Jannis
 jannismain
 jimustafa
 jinja
 magiclink
+Mainczyk
 mkdocs
 mkdocstrings
 myst
