@@ -97,6 +97,7 @@ markdown_extensions:
       permalink: "#"
       permalink_title: "Link to this section"
       toc_depth: 3
+  # emoji support: https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/
   - attr_list
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
@@ -106,12 +107,9 @@ markdown_extensions:
   - pymdownx.critic
 
 extra_javascript:
-  # pymdownx.magiclink customization
   - assets/magiclink.js
 
 extra_css:
-  # - https://cdn.jsdelivr.net/gh/rod2ik/cdn@main/mkdocs/css/columns.css # https://eskool.gitlab.io/mkhack3rs/columns/
-  # pymdownx.magiclink customization
   - assets/magiclink.css
   - assets/custom.css
 
