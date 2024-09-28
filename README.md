@@ -77,3 +77,4 @@ The second part of the user guide explains how best practices, like [testing][],
 ## Known Issues
 
 * Do not name your project `test`. It will mess with [`pytest`'s automatic test discovery mechanism](https://docs.pytest.org/explanation/goodpractices.html#conventions-for-python-test-discovery).
+* If running on Windows in git-bash, you may receive a `NoConsoleScreenBufferError` error. One solution is to run using `winpty`. For example, `winpty init-python-project my-project`.
