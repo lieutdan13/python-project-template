@@ -65,6 +65,7 @@ def cli(
     project_description: CustomOptional(str, "Python package description") = None,
     user_name: CustomOptional(str, "your user name") = None,
     author: CustomOptional(str, "author name") = None,
+    organization: CustomOptional(str, "organization name") = None,
     docs: CustomOptional(DocumentationTool) = None,
     docs_template: CustomOptional(DocumentationTemplate) = None,
     remote: CustomOptional(RemotePlatform) = None,
@@ -130,7 +131,7 @@ def cli(
     data = {}
     for (
         option
-    ) in "project_name package_name project_description user_name author docs remote remote_url precommit bumpversion".split():
+    ) in "project_name package_name project_description user_name author organization docs remote remote_url precommit bumpversion".split():
         value = locals()[option]
         if value is not None:
             logging.info("%s: %s", option, value)

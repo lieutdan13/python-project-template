@@ -7,8 +7,8 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "{{ project_name }}"
-copyright = "2023, Fraunhofer IIS"
-author = "{{ author }}"
+copyright = "2024, {% if organization %}{{organization}}{% else %}{{author}}{% endif %}"
+author = "{{author}}"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

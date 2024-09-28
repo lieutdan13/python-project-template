@@ -192,3 +192,10 @@ author:
   default: "{{user_name}}"
   explanation: |
     This is the name of the author used for the project.
+
+organization:
+  type: str
+  help: The organization that the project belongs to.
+  default: "{{author}}"
+  explanation: |
+    This is the name of the organization that the project belongs to. Used for the copyright.
