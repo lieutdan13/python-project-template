@@ -185,3 +185,10 @@ _tasks:
   - "git init --initial-branch={{default_branch}}"
   - "git remote add origin {{remote_url}} || true"
   - "{% if precommit %}pre-commit install || echo 'Error during installation of pre-commit hooks. Is pre-commit installed?'{% endif %}"
+
+author:
+  type: str
+  help: The project author's name
+  default: "{{user_name}}"
+  explanation: |
+    This is the name of the author used for the project.
