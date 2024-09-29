@@ -137,13 +137,6 @@ user_name:
 
     Together with [remote][], it will be used to suggest a [remote url][remote-url] for your project.
 
-email_address:
-  type: str
-  help: Email address of the author
-  default: "{{ user_name|lower }}@iis.fhg.de"
-  explanation: |
-    This is the email address for the author of the project.
-
 remote_url:
   type: str
   help: URL of the remote repository
@@ -206,3 +199,10 @@ organization:
   default: "{{author}}"
   explanation: |
     This is the name of the organization that the project belongs to. Used for the copyright.
+
+email_address:
+  type: str
+  help: Email address of the author
+  default: "{{ user_name|lower }}@iis.fhg.de"
+  explanation: |
+    This is the email address for the author of the project.
