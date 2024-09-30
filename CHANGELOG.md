@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - project description, author, organization, and email address are now customizable
+- add support for Windows in Makefiles
 
 ## [0.0.6] - 2023-10-12
 

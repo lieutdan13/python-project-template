@@ -22,7 +22,7 @@ $(PUBLISHED_EXAMPLES): uncopy-template link-template
 	@echo "Recreating '$@'..."
 	@rm -rf "$@" && mkdir -p "$@"
 	init-python-project "$@" ${INIT_PYTHON_PROJECT_ARGS} --defaults --yes --verbose
-	$(MAKE) example-setup EXAMPLE_DIR="$@"
+	"$(MAKE)" example-setup EXAMPLE_DIR="$@"
 
 docs/examples/mkdocs: INIT_PYTHON_PROJECT_ARGS+=--docs mkdocs
 docs/examples/sphinx: INIT_PYTHON_PROJECT_ARGS+=--docs sphinx
@@ -38,7 +38,7 @@ $(DOC_EXAMPLES): uncopy-template copy-template
 		python -m venv .venv || echo "Couldn't setup virtual environment" &&\
 		. .venv/bin/activate &&\
 		pip install --upgrade pip &&\
-		$(MAKE) install-dev || echo "Couldn't install dev environment for example"
+		"$(MAKE)" install-dev || echo "Couldn't install dev environment for example"
 
 example-setup: example-setup-commit example-setup-local
 example-setup-commit:
@@ -55,7 +55,7 @@ ifndef CI
 		python -m venv .venv || echo "Couldn't setup virtual environment" &&\
 		source .venv/bin/activate &&\
 		pip install --upgrade pip &&\
-		$(MAKE) install-dev || echo "Couldn't install dev environment for example" &&\
+		"$(MAKE)" install-dev || echo "Couldn't install dev environment for example" &&\
 		code --new-window .
 endif
 
@@ -65,7 +65,7 @@ examples-clean: ## remove all published examples
 build/example:  ## build individual example for manual testing (will prompt for values!)
 	rm -rf "$@"
 	init-python-project "$@" ${INIT_PYTHON_PROJECT_ARGS}
-	$(MAKE) example-setup EXAMPLE_DIR="$@"
+	"$(MAKE)" example-setup EXAMPLE_DIR="$@"
 
 
 .PHONY: docs docs-live docs-clean docs-clean-cache
@@ -76,7 +76,7 @@ docs: $(DOC_EXAMPLES)
 	mkdocs $(MKDOCS_CMD) $(MKDOCS_ARGS)
 docs-live: ## serve documentation locally
 docs-live:
-	$(MAKE) docs MKDOCS_CMD=serve MKDOCS_ARGS=--clean
+	"$(MAKE)" docs MKDOCS_CMD=serve MKDOCS_ARGS=--clean
 docs-clean:
 	rm -rf docs/examples public build/docs
 docs-clean-cache:

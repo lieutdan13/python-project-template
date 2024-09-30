@@ -14,7 +14,7 @@ coverage:	## collect coverage data and open report in browser
 		&& ( echo "Opening 'build/coverage/index.html'..."; open build/coverage/index.html )\
 		|| echo ""
 coverage-ci:
-	@CI=true $(MAKE) coverage
+	@CI=true "$(MAKE)" coverage
 
 .PHONY: lint
 lint:	## run static code checks
@@ -30,13 +30,13 @@ docs:	## build documentation
 {%- if docs == 'mkdocs' %}
 	${MKDOCS_BIN} build --site-dir ${DOCS_TARGET}/html
 {%- elif docs == 'sphinx' %}
-	cd docs && BUILDDIR=../${DOCS_TARGET} $(MAKE) -b html
+	cd docs && BUILDDIR=../${DOCS_TARGET} "$(MAKE)" -b html
 {% endif %}
 docs-live:	## serve documentation
 {%- if docs == 'mkdocs' %}
 	mkdocs serve
 {%- elif docs == 'sphinx' %}
-	cd docs && $(MAKE) serve
+	cd docs && "$(MAKE)" serve
 {% endif %}
 
 {% endif %}
