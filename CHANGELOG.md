@@ -9,8 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- project description, author, organization, and email address are now customizable
-- add support for Windows in Makefiles
+- adds customization of project description, author, organization, and email address
+- adds support for Windows in Makefiles
+- adds `make test-all-proprietary` to include tests marked as `proprietary`
+
+### Changed
+
+- skips tests that use pexpect and will not run on Windows
+- marks tests as `proprietary` and does not run them by default
+
+### Fixed
+
+- GitLab pipeline file not created if Sphinx and GitHub is chosen
 
 ## [0.0.6] - 2023-10-12
 

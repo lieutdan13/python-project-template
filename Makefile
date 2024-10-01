@@ -100,9 +100,12 @@ spellcheck-dump: ## save all flagged words to project terms dictionary
 PYTEST_ARGS?=
 test: ## run some tests
 test: build-clean copy-template
-	pytest ${PYTEST_ARGS} -m "not slow"
-test-all: ## run all tests
+	pytest ${PYTEST_ARGS} -m "not slow and not proprietary"
+test-all: ## run all tests, except proprietary
 test-all: build-clean copy-template
+	pytest ${PYTEST_ARGS} -m "not proprietary" -vvvvvvvv
+test-all-proprietary: ## run all tests, including proprietary tests
+test-all-proprietary: build-clean copy-template
 	pytest ${PYTEST_ARGS}
 
 

@@ -10,11 +10,14 @@ from copier import run_copy
 from pytest_venv import VirtualEnvironment
 
 template = yaml.safe_load(Path(__file__).parent.with_name("copier.yaml").read_text())
-SUPPORTED_REMOTES = template["remote"]["choices"].values()
+SUPPORTED_REMOTES = [
+    (pytest.param(r, marks=pytest.mark.proprietary) if any(x not in r for x in ('fhg', 'iis')) else r)
+    for r in template["remote"]["choices"].values()
+]
 SUPPORTED_DOCS = template["docs"]["choices"].values()
 SUPPORTED_DOCS_TEMPLATES = template["docs_template"]["choices"].values()
 SUPPORTED_DOCS_TEMPLATES_COMBINATIONS = [
-    t
+    (pytest.param(t[0], t[1], marks=pytest.mark.proprietary) if t[1] == 'sphinx-fhg-iis' else t)
     for t in itertools.product(SUPPORTED_DOCS, SUPPORTED_DOCS_TEMPLATES)
     if t[1] == "none" or t[1].startswith(t[0])
 ]
@@ -109,7 +112,10 @@ def test_template_generation(
         fp_sphinx_requirements = fp_docs / "requirements.txt"
         assert fp_sphinx_requirements.is_file(), "sphinx requirements file should exist"
         fp_sphinx_ci_job = fp_docs / ".gitlab" / "docs.yml"
-        assert fp_sphinx_ci_job.is_file(), "sphinx ci job should exist"
+        if remote.startswith("gitlab"):
+            assert fp_sphinx_ci_job.is_file(), "sphinx ci job should exist"
+        else:
+            assert not fp_sphinx_ci_job.is_file(), "sphinx ci job should not exist"
 
     use_docs = docs != "none"
     assert fp_docs.is_dir() == use_docs, "docs directory should exist if configured"
@@ -200,7 +206,8 @@ def test_remote_option(tmp_path: Path, remote: str):
 
 
 @pytest.mark.parametrize("docs", SUPPORTED_DOCS)
-def test_docs_option(venv: VirtualEnvironment, tmp_path: Path, docs: str):
+@pytest.mark.parametrize("remote", SUPPORTED_REMOTES)
+def test_docs_option(venv: VirtualEnvironment, tmp_path: Path, docs: str, remote: str):
     root = tmp_path
 
     run_copy(
@@ -222,7 +229,10 @@ def test_docs_option(venv: VirtualEnvironment, tmp_path: Path, docs: str):
         fp_sphinx_makefile = root / "docs" / "Makefile"
         assert fp_sphinx_makefile.is_file(), "sphinx Makefile should exist"
         fp_sphinx_ci_job = root / "docs" / ".gitlab" / "docs.yml"
-        assert fp_sphinx_ci_job.is_file(), "sphinx ci job should exist"
+        if remote.startswith("gitlab"):
+            assert fp_sphinx_ci_job.is_file(), "sphinx ci job should exist"
+        else:
+            assert not fp_sphinx_ci_job.is_file(), "sphinx ci job should not exist"
 
     if docs != "none":
         assert (root / "docs").is_dir(), "docs directory should exist"
