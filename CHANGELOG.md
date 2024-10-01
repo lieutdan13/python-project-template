@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - skips tests that use pexpect and will not run on Windows
 - marks tests as `proprietary` and does not run them by default
+- updates all GitHub actions to the most recent
 
 ### Fixed
 
