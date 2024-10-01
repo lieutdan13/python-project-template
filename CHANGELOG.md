@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - GitLab pipeline file not created if Sphinx and GitHub is chosen
+- opens unit test coverage report using `start` on Windows
 
 ## [0.0.6] - 2023-10-12
 
