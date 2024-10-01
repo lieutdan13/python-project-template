@@ -77,3 +77,20 @@ The second part of the user guide explains how best practices, like [testing][],
 ## Known Issues
 
 * Do not name your project `test`. It will mess with [`pytest`'s automatic test discovery mechanism](https://docs.pytest.org/explanation/goodpractices.html#conventions-for-python-test-discovery).
+
+### Running Tests
+
+Run all tests, except for slow and proprietary.
+```
+make test
+```
+
+Run all tests, except for proprietary.
+```
+make test-all
+```
+
+Run all tests.
+```
+make test-all-proprietary
+```
