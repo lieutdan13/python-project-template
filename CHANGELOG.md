@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - opens unit test coverage report using `start` on Windows
 - `tests` directory no longer included in coverage report
 - fixes `ruff` linting and configuration warnings
+- fixes `myst` error when generating documentation
 
 ## [0.0.6] - 2023-10-12
 
