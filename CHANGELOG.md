@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- documentation of a known issue with `NoConsoleScreenBufferError` during runtime
+- documentation of a known issue with `NoConsoleScreenBufferError` during runtime under Windows git-bash (provided by [@lieutdan13][])
 
 ## [0.0.6] - 2023-10-12
 
@@ -118,3 +118,5 @@ An example project (comparable to [pypa/sampleproject]) can be found at [jannism
 [0.0.1]: https://github.com/jannismain/python-project-template/releases/tag/0.0.1
 [pypa/sampleproject]: https://github.com/pypa/sampleproject
 [jannismain/python-project-template-example]: https://github.com/jannismain/python-project-template-example
+
+[@lieutdan13]: https://github.com/lieutdan13
